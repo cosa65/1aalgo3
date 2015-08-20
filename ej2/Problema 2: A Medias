@@ -1,0 +1,7 @@
+Problema 2: A Medias
+
+El problema a resolver requiere, dado un conjunto ordenado, es decir, una secuencia de enteros, encontrar una secuencia que en cada posición i contenga la mediana de la secuencia de entrada, con la mediana definida como:
+
+TODO:latexear definicion de la mediana
+
+Es decir, para cada subsecuencia de la original entre 0 e i, 
