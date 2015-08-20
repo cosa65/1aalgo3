@@ -19,23 +19,38 @@ struct ramal{
   int cable;
 };
 
+void print(vector<int> ramales, int D[]){
+	for(int eme=0; eme < ramales.size(); eme++){
+  	cout << ramales[eme] << " ";
+  }
+  cout << endl;
+  for(int eme=0; eme < ramales.size(); eme++){
+  	cout << D[eme] << " ";
+  }
+  cout << endl;
+}
+
 void crearDists(int km, vector<int> ramales, int D[], int n){
   int r;
   vector<int>::iterator it = ramales.begin();
   D[0] = *it;
-  int j=1;
-  while (j<n){
+  int j=0;
+  while (j<n-1){
     int aux1 = *it;
     it++;
     int aux2 = *it;
     D[j] = aux1 - aux2;
     j++;
   }
+  	//Aca estoy pegando el 0, de la ultima ciudad
+}
+
+int meAlcanzaCableInit(int D[],int km, int j, int i, ramal acum1, ramal acum2, ramal *acumActual){
+  if(acumActual->cable + D[j] <= km) return ALCANZA;
+  return NO_ALCANZA;
 }
 
 int meAlcanzaCable(int D[],int km, int j, int i, ramal acum1, ramal acum2, ramal *acumActual){
-  // int ciudAct=acumActual->ciudades;
-  // int cabAct=acumActual->cable;
   if(acumActual->cable + D[j] <= km) return ALCANZA;
   if((acumActual->cable + D[j]-D[i] <= km)) return ALCANZA_SI_DESCARTO;
   return NO_ALCANZA;
@@ -47,7 +62,7 @@ void soloAgregarCiudad(int D[], int km, int j, int i, ramal *acum1, ramal *acum2
 }
 
 void agregarCiudadRestando(int D[], int km, int j, int i, ramal *acum1, ramal *acum2, ramal *acumActual){
-  acumActual->cable+=(D[j] - D[i]);
+  acumActual->cable+=(D[j] - D[i-1]);
 }
 
 void elegirTuplaNueva(int D[], int km, int j, int i, ramal *acum1, ramal *acum2, ramal **acumActualptr){
@@ -82,29 +97,38 @@ int ejUno(int km, vector<int> ramales) {
   ramal acum2;
   ramal *acumActual = &acum1;
   int n = ramales.size();
-  int D[n];
+  int D[n-1];
+  int meAlcanza;
 
   crearDists(km, ramales, D, n);  	//creo arreglo con las distancias, si la ciudades son [a,b,c,d,e,f] 
   									                //entonces D = [d(a,b), d(b,c), d(c,d), d(d,e), d(e,f)]
   acum1.cable=0; acum1.ciudades=0;
   acum2.cable=0; acum2.ciudades=0;					//tup[0]=cant de cable usado, tup[1]=cant de ciudades conectadas
-  int j = n-2;
+
   int i = n-1;
+  int j = n-2;
+
+  meAlcanza = meAlcanzaCableInit(D,km,j,i,acum1,acum2,acumActual);	//Este seria el caso inicial, en el que el i no importa
+  if(meAlcanza==ALCANZA){
+  	soloAgregarCiudad(D,km,j,i,&acum1,&acum2,acumActual);
+  	acumActual->ciudades++;
+  } else {
+  	i = n-2;
+  	j = n-3;
+  }
 
   int ciudAct,cabAct;
-
+  if(ramales.size()>13){
+  	int exe;
+  }
   while(j>=0){
-
-    ciudAct=acumActual->ciudades;
-    cabAct=acumActual->cable;    
-    int meAlcanza = meAlcanzaCable(D,km,j,i,acum1,acum2,acumActual);	//Devuelve un int que me indica si ALCANZA, ALCANZA_SI_DESCARTO o NO_ALCANZA
+    meAlcanza = meAlcanzaCable(D,km,j,i,acum1,acum2,acumActual);	//Devuelve un int que me indica si ALCANZA, ALCANZA_SI_DESCARTO o NO_ALCANZA
     if(meAlcanza==ALCANZA){
       if(acaboDeEmpezar(acumActual)) acumActual->ciudades++;
       soloAgregarCiudad(D,km,j,i,&acum1,&acum2,acumActual);
       int debug=acumActual->ciudades;
       j--;															//Muevo el indice que selecciona las ciudades a agregar
     }else if(meAlcanza==ALCANZA_SI_DESCARTO && !(acaboDeEmpezar(acumActual))){
-    	//if(acaboDeEmpezar(acumActual)) acumActual->ciudades++;
       agregarCiudadRestando(D,km,j,i,&acum1,&acum2,acumActual);
       j--;															//Muevo el indice que selecciona las ciudades a agregar
       i--;															//Muevo el indice que selecciona las ciudades que finalizan el intervalo
@@ -115,7 +139,7 @@ int ejUno(int km, vector<int> ramales) {
     }
 
   }
-
+  print(ramales,D);
   int res = mayorCant(acum1,acum2);
   return res;
 }
@@ -140,10 +164,10 @@ int evaluarTests(string fileTestData, string fileTestResult, string fileTestWrit
     getline (fileData, line);
     istringstream iss(line);
     int aux;
+    it = ramales.insert(it, 0);
     while (iss >> aux) {
       it = ramales.insert(it, aux);
     }
-
     // Segundo dato a leer es la linea de los ramales
     // Los inserto en un vector de atras para adelante
     // de manera tal que si el vector es [6, 8, 12, 15]
