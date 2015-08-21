@@ -19,13 +19,17 @@ struct ramal{
   int cable;
 };
 
-void print(vector<int> ramales, int D[]){
+void print(vector<int> ramales, int D[],int j,int i){
 	for(int eme=0; eme < ramales.size(); eme++){
   	cout << ramales[eme] << " ";
+  	if(eme==j) {cout << "(<--JOTA)" << " ";}
+  	if(eme==i) {cout << "(<--EL I)" << " ";}
   }
   cout << endl;
   for(int eme=0; eme < ramales.size(); eme++){
   	cout << D[eme] << " ";
+    if(eme==j) {cout << "(<--JOTA)" << " ";}
+  	if(eme==i) {cout << "(<--EL I)" << " ";}
   }
   cout << endl;
 }
@@ -41,8 +45,8 @@ void crearDists(int km, vector<int> ramales, int D[], int n){
     int aux2 = *it;
     D[j] = aux1 - aux2;
     j++;
-  }
-  	//Aca estoy pegando el 0, de la ultima ciudad
+  }	//Aca estoy pegando el 0, de la ultima ciudad
+  D[n-1]=0;
 }
 
 int meAlcanzaCableInit(int D[],int km, int j, int i, ramal acum1, ramal acum2, ramal *acumActual){
@@ -62,7 +66,7 @@ void soloAgregarCiudad(int D[], int km, int j, int i, ramal *acum1, ramal *acum2
 }
 
 void agregarCiudadRestando(int D[], int km, int j, int i, ramal *acum1, ramal *acum2, ramal *acumActual){
-  acumActual->cable+=(D[j] - D[i-1]);
+  acumActual->cable+=(D[j] - D[i]);
 }
 
 void elegirTuplaNueva(int D[], int km, int j, int i, ramal *acum1, ramal *acum2, ramal **acumActualptr){
@@ -97,7 +101,7 @@ int ejUno(int km, vector<int> ramales) {
   ramal acum2;
   ramal *acumActual = &acum1;
   int n = ramales.size();
-  int D[n-1];
+  int D[n];
   int meAlcanza;
 
   crearDists(km, ramales, D, n);  	//creo arreglo con las distancias, si la ciudades son [a,b,c,d,e,f] 
@@ -112,19 +116,19 @@ int ejUno(int km, vector<int> ramales) {
   if(meAlcanza==ALCANZA){
   	soloAgregarCiudad(D,km,j,i,&acum1,&acum2,acumActual);
   	acumActual->ciudades++;
+  	i=n-2;
+  	j=n-3;
   } else {
   	i = n-2;
+  	D[i]=0;
   	j = n-3;
   }
 
-  int ciudAct,cabAct;
-  if(ramales.size()>13){
-  	int exe;
-  }
   while(j>=0){
+  	//print(ramales,D,j,i);
     meAlcanza = meAlcanzaCable(D,km,j,i,acum1,acum2,acumActual);	//Devuelve un int que me indica si ALCANZA, ALCANZA_SI_DESCARTO o NO_ALCANZA
     if(meAlcanza==ALCANZA){
-      if(acaboDeEmpezar(acumActual)) acumActual->ciudades++;
+      if(acaboDeEmpezar(acumActual)) {acumActual->ciudades++;}
       soloAgregarCiudad(D,km,j,i,&acum1,&acum2,acumActual);
       int debug=acumActual->ciudades;
       j--;															//Muevo el indice que selecciona las ciudades a agregar
@@ -133,13 +137,17 @@ int ejUno(int km, vector<int> ramales) {
       j--;															//Muevo el indice que selecciona las ciudades a agregar
       i--;															//Muevo el indice que selecciona las ciudades que finalizan el intervalo
     } else { //caso meAlcanza==NO_ALCANZA
-      i=j; 															//el final de mi nuevo intervalo es en la ciudadque termina el intervalo actual
-      j--;
+      if(acaboDeEmpezar(acumActual)) {
+      	j--;
+      	i--;
+      } else {
+      	i=j+1; 															//el final de mi nuevo intervalo es en la ciudadque termina el intervalo actual
+      }
       elegirTuplaNueva(D,km,j,i,&acum1,&acum2,&acumActual);		//Modifica usotuplaNro para que decide que tupla flushear y cual conservar (se queda con la que mas ciudades encompase)
+    	D[i]=0;
     }
 
   }
-  print(ramales,D);
   int res = mayorCant(acum1,acum2);
   return res;
 }
