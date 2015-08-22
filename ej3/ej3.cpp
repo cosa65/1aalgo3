@@ -6,27 +6,38 @@
 #include <sstream>
 #include <vector>
 #include <set>
+#include <tuple>
+
+#include "ronda.cpp"
 using namespace std;
 
 typedef set<set<char>> bigSet;
-typedef vector<vector<char>> bigVector;
 
+void permutaciones(tuple<Ronda, int> &rondaRes, Ronda &exploradoras, int pos, bigSet amistades) {
+  if (pos == exploradoras.cantidad()-1) {
 
-void swap(vector<char> &exploradoras, int pos, int i) {
-  char temp = exploradoras[pos];
-  exploradoras[pos] = exploradoras[i];
-  exploradoras[i] = temp;
-}
+    // rondaRes va almacenando la ronda más óptima
+    // exploradoras tiene la siguiente permutacion a analizar
 
-void permutaciones(bigVector &pExploradoras, int pos, vector<char> &exploradoras) {
-  if (pos == exploradoras.size()-1) {
-    pExploradoras.insert(itA, exploradoras);
+    int sumaDists = exploradoras.sumaDistancias(amistades);
+
+    if (sumaDists < get<1>(rondaRes)) {
+      get<0>(rondaRes) = exploradoras;
+      get<1>(rondaRes) = sumaDists;
+      // exploradoras tiene un solucion mejor que la anterior
+    }
+    if (sumaDists == get<1>(rondaRes)) {
+      if (exploradoras < get<0>(rondaRes))
+        get<0>(rondaRes) = exploradoras;
+      // chequear cual es menor lexicograficamente 
+      // ESTO ES LO QUE ANDA MAL
+    }
 
   } else {
-    for (int i = pos ; i < exploradoras.size() ; i++) {
-      swap(exploradoras, pos, i );
-      permutaciones(pExploradoras, pos+1, exploradoras);
-      swap(exploradoras, pos, i );
+    for (int i = pos ; i < exploradoras.cantidad() ; i++) {
+      exploradoras.swap(pos, i);
+      permutaciones(rondaRes, exploradoras, pos+1, amistades);
+      exploradoras.swap(pos, i);
     }
   }
 }
@@ -36,21 +47,23 @@ void permutaciones(bigVector &pExploradoras, int pos, vector<char> &exploradoras
 // llamada con pos = 2
 // con pos = T hago E-T llamadas para cada una de las llamadas anteriores
 // productoria entre 1 y E = factorial
-// NO guardar todo, ir verificando solucion optima
 
-string ej3(vector<char> exploradoras, bigSet amistades) {
-  bigVector pExploradoras;
-  bigVector::iterator itE; // iterador para las permutaciones de exploradoras
-  bigSet::iterator itA; // iterador para las amistades
-  permutaciones(pExploradoras, 0, exploradoras);
+string ej3(tuple<Ronda, int> rondaRes, Ronda exploradoras, bigSet amistades) {
+  permutaciones(rondaRes, exploradoras, 0, amistades);
+  string res;
 
+  // Meto el resultado en un string
 
-  for(itE = pExploradoras.begin() ; itE != pExploradoras.end() ; itE++) {
-    for (itA = amistades.begin() ; itA != amistades.end() ; itA++) {
-      //calcularDistancias(itE, itA);
-    }
+  int dist = get<0>(rondaRes).maxDistAmistades(amistades);
+
+  res.append(to_string(dist));
+  res.append((const char*)" ");
+  
+  for (int i = 0 ; i < get<0>(rondaRes).cantidad() ; i++) {
+    res.push_back(get<0>(rondaRes).exploradoraEnPos(i));
   }
-  return "hare";
+
+  return res;
 }
 
 
@@ -72,9 +85,6 @@ int evaluarTests(string fileTestData, string fileTestResult, string fileTestWrit
     bigSet amistades;
     bigSet::iterator itA;
     set<char> expl;
-    vector<char> exploradoras;
-    vector<char>::iterator itE; 
-    //set<char>::iterator it;
 
     getline (fileData, line);
     istringstream iss(line);
@@ -92,9 +102,12 @@ int evaluarTests(string fileTestData, string fileTestResult, string fileTestWrit
         }
       }
     }
-    exploradoras.assign(expl.begin(), expl.end());
+    Ronda exploradoras(expl);
+    // Lo creo a partir del conjunto por que ahi puedo
+    // meter lo que quiera sin verificar repetidos
+    tuple <Ronda, int> rondaRes (Ronda(expl), 120);
 
-    res = ej3(exploradoras, amistades);
+    res = ej3(rondaRes, exploradoras, amistades);
 
     getline (fileResult, line);
 
@@ -105,19 +118,20 @@ int evaluarTests(string fileTestData, string fileTestResult, string fileTestWrit
     ///// y pregunto si ya termine de evaluar todos los tests
 
     string resTest = line;
-    ///// convierto a int
 
     ///fileWrite << res << endl;
-/*
     if (res == resTest) {
+      cout << endl;
       cout << "Paso el test " << j << ". Felicitaciones!" << endl;
+      cout << endl;
     } else {
+      cout << endl;
       cout << "Fallo el test " << j << ". :(" << endl;
       cout << "Obtuve " << res << " deberia tener " << resTest << endl;
+      cout << endl;
     }
 
     j++;
-    */
   }
 }
 
@@ -126,36 +140,9 @@ int main(int argc, char **argv) {
   string fileTestResult(argv[2]);
   string fileTestWrite(argv[3]);
 
-  //vector<char> exploradoras;
-  //vector<char>::iterator itV;
-  //bigVector r;
-  //char a = char(97); 
-  //char b = char(98); 
-  //char c = char(99); 
-  //char d = char(100); 
-  //itV = exploradoras.insert(itV, d);
-  //itV = exploradoras.insert(itV, c);
-  //itV = exploradoras.insert(itV, b);
-  //itV = exploradoras.insert(itV, a);
-
-  //permutaciones(r, 0, exploradoras);
   evaluarTests(fileTestData, fileTestResult, fileTestWrite);
   return 0;
 }
-
-    /* MANERA DE ITERAR EL SET<SET<CHAR>>
-    for (itE = exploradoras.begin() ; itE!=exploradoras.end() ; itE++) {
-      cout << "exploradora : " << *itE << endl;
-    }
-    cout << "hareeeeeeeeeeeeeee" << endl;
-    for (itA = amistades.begin() ; itA!=amistades.end() ; itA++) {
-      for (it = itA->begin() ; it!= itA->end() ; it++) {
-        cout << " elem: " << *it; 
-      }
-      cout << endl;
-    }
-    cout << "hareeeeeeeeeeeeeee" << endl;
-    */
 
 
 //void verIgualdad() {
@@ -204,3 +191,20 @@ int main(int argc, char **argv) {
   }
 
 */
+  //vector<char> exploradoras;
+  //vector<char>::iterator itV;
+  //bigVector r;
+  //char a = char(97); 
+  //char b = char(98); 
+  //char c = char(99); 
+  //char d = char(100); 
+  //itV = exploradoras.insert(itV, d);
+  //itV = exploradoras.insert(itV, c);
+  //itV = exploradoras.insert(itV, b);
+  //itV = exploradoras.insert(itV, a);
+
+  //permutaciones(r, 0, exploradoras);
+  //string res;
+  //res.append("h");
+  //res.append("o");
+  //cout << res << endl;

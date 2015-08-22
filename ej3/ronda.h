@@ -5,6 +5,7 @@
 
 using namespace std;
 
+typedef set<set<char>> bigSet;
 
 class Ronda {
 
@@ -16,11 +17,23 @@ class Ronda {
 
     Ronda();
     Ronda(set<char>);
-    char izq(char);
-    char der(char);
-    int distancia(char, char);
-    bool estaEnRonda(char);
-    int encontrarPos(char);
+    //constructores
+    
     int cantidad();  
+    
+    int distancia(char, char);
+
+    int encontrarPos(char);
+    bool estaEnRonda(char);
+    bool esMayorQue(Ronda);
+    char exploradoraEnPos(int);
+
     void imprimir();
+
+    int maxDistAmistades(bigSet);
+
+    bool operator <(Ronda);
+
+    int sumaDistancias(bigSet);
+    void swap(int, int);
 };
