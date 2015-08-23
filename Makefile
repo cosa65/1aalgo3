@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -std=c++11 -o
 EFLAGS = -g
 
-BINARIES = ej1 ej2
+BINARIES = ej3
 
 .PHONY: ej1 ej2 ej3
 
@@ -19,7 +19,9 @@ ej2: ej2/mediana.cpp
 
 ej3: ej3/ej3.cpp
 	$(CC) ej3/ej3.cpp $(CFLAGS) exj3
-	cd ej3
+
+ronda: ej3/ronda.h
+	$(CC) ej3/ronda.h $(CFLAGS) ronda 
 
 clean:
 	rm -f ej1/*.o exj1

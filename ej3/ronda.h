@@ -26,6 +26,7 @@ class Ronda {
     int encontrarPos(char);
     bool estaEnRonda(char);
     bool esMayorQue(Ronda);
+    //bool esResult();
     char exploradoraEnPos(int);
 
     void imprimir();

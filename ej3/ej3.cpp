@@ -30,7 +30,6 @@ void permutaciones(tuple<Ronda, int> &rondaRes, Ronda &exploradoras, int pos, bi
       if (exploradoras < get<0>(rondaRes))
         get<0>(rondaRes) = exploradoras;
       // chequear cual es menor lexicograficamente 
-      // ESTO ES LO QUE ANDA MAL
     }
 
   } else {
@@ -108,6 +107,9 @@ int evaluarTests(string fileTestData, string fileTestResult, string fileTestWrit
     tuple <Ronda, int> rondaRes (Ronda(expl), 120);
 
     res = ej3(rondaRes, exploradoras, amistades);
+
+    //if (res != ("1 xyz"))
+    //  res.push_back('\r');
 
     getline (fileResult, line);
 

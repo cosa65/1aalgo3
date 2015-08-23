@@ -56,10 +56,13 @@ char Ronda::exploradoraEnPos(int i) {
 
 void Ronda::imprimir(){
   int i = 0;
+  cout << endl;
   while(i < this->exploradoras.size()){
-    cout << this->exploradoras[i] << endl;
+    cout << " exp[" << i << "] " << this->exploradoras[i];
     i++;
   }
+  cout << endl;
+  cout << endl;
 }
 
 int Ronda::maxDistAmistades(bigSet amistades) {
@@ -81,14 +84,43 @@ int Ronda::maxDistAmistades(bigSet amistades) {
   return res;
 }
 
+//bool Ronda::esResult() {
+//  return (this->exploradoraEnPos(0) == 'a' && this->exploradoraEnPos(1) == 'b' && 
+//      this->exploradoraEnPos(2) == 'c' && this->exploradoraEnPos(3) == 'f' &&
+//      this->exploradoraEnPos(4) == 'g' && this->exploradoraEnPos(5) == 'd' &&
+//      this->exploradoraEnPos(6) == 'h' && this->exploradoraEnPos(7) == 'e');
+//  
+//}
+
 bool Ronda::operator <(Ronda r) {
-  bool res = false;
-  int i = 0;
-  while (i < r.cantidad() && !res) {
-    res = (this->exploradoraEnPos(i) < r.exploradoraEnPos(i));
+  bool res;
+  bool sonDistintos = false;
+  int i = -1;
+  while (i < r.cantidad() && !sonDistintos) {
     i++;
+    sonDistintos = (this->exploradoraEnPos(i) != r.exploradoraEnPos(i));
   }
-  return res;
+  //if (this->exploradoraEnPos(0) == 'a' && this->exploradoraEnPos(1) == 'b' && 
+  //    this->exploradoraEnPos(2) == 'c' && this->exploradoraEnPos(3) == 'f' &&
+  //    this->exploradoraEnPos(4) == 'g' && this->exploradoraEnPos(5) == 'd' &&
+  //    this->exploradoraEnPos(6) == 'h' && this->exploradoraEnPos(7) == 'e')
+  //  cout << "ACA VIEJA EN THIS" << endl;
+
+  //if (r.exploradoraEnPos(0) == 'a' && r.exploradoraEnPos(1) == 'b' && 
+  //    r.exploradoraEnPos(2) == 'c' && r.exploradoraEnPos(3) == 'f' &&
+  //    r.exploradoraEnPos(4) == 'g' && r.exploradoraEnPos(5) == 'd' &&
+  //    r.exploradoraEnPos(6) == 'h' && r.exploradoraEnPos(7) == 'e')
+  //  cout << "ACA VIEJA EN R" << endl;
+
+  //if (this->exploradoraEnPos(i) == 'g' || r.exploradoraEnPos(i) == 'g') {
+  //cout << "exploradores :"; 
+  //  this->imprimir();
+  //  cout << "rondaRes"; 
+  //  r.imprimir();
+  //}
+
+
+  return res = (this->exploradoraEnPos(i) < r.exploradoraEnPos(i));
 }
 
 int Ronda::sumaDistancias(bigSet amistades) {
