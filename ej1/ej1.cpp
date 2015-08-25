@@ -109,23 +109,16 @@ int ejUno(int km, vector<int> ramales) {
   acum1.cable=0; acum1.ciudades=0;
   acum2.cable=0; acum2.ciudades=0;					//tup[0]=cant de cable usado, tup[1]=cant de ciudades conectadas
 
-  int i = n-1;
-  int j = n-2;
 
-  meAlcanza = meAlcanzaCableInit(D,km,j,i,acum1,acum2,acumActual);	//Este seria el caso inicial, en el que el i no importa
+  meAlcanza = meAlcanzaCableInit(D,km,n-2,n-1,acum1,acum2,acumActual);	//Este seria el caso inicial, en el que el i no importa (porque no hay ciudades que abandonar)
   if(meAlcanza==ALCANZA){
-  	soloAgregarCiudad(D,km,j,i,&acum1,&acum2,acumActual);
+  	soloAgregarCiudad(D,km,n-2,n-1,&acum1,&acum2,acumActual);
   	acumActual->ciudades++;
-  	i=n-2;
-  	j=n-3;
-  } else {
-  	i = n-2;
-  	D[i]=0;
-  	j = n-3;
   }
+ 	int i=n-2;
+ 	int j=n-3;
 
   while(j>=0){
-  	//print(ramales,D,j,i);
     meAlcanza = meAlcanzaCable(D,km,j,i,acum1,acum2,acumActual);	//Devuelve un int que me indica si ALCANZA, ALCANZA_SI_DESCARTO o NO_ALCANZA
     if(meAlcanza==ALCANZA){
       if(acaboDeEmpezar(acumActual)) {acumActual->ciudades++;}
@@ -141,25 +134,23 @@ int ejUno(int km, vector<int> ramales) {
       	j--;
       	i--;
       } else {
-      	i=j+1; 															//el final de mi nuevo intervalo es en la ciudadque termina el intervalo actual
+      	i=j+1; 															//el principio de mi nuevo intervalo es en la ciudad que termina el intervalo actual
       }
       elegirTuplaNueva(D,km,j,i,&acum1,&acum2,&acumActual);		//Modifica usotuplaNro para que decide que tupla flushear y cual conservar (se queda con la que mas ciudades encompase)
-    	D[i]=0;
+    	D[i]=0;														//El principio de mi intervalo es 0, es decir que no gano nada de cable por soltarlo.
     }
-
   }
   int res = mayorCant(acum1,acum2);
   return res;
 }
 
-int evaluarTests(string fileTestData, string fileTestResult, string fileTestWrite) {
+int evaluarTests(string fileTestData, string fileTestResult) {
   vector<int> ramales;
   int i = 1;
   int km;
   string line;
   ifstream fileData (fileTestData.c_str());
   ifstream fileResult (fileTestResult.c_str());
-  ofstream fileWrite (fileTestWrite.c_str());
   // Abri los archivos de datos y resultados
   // e instancie las variables necesarias para el problema
   // el kilometraje y el vector de ramales
@@ -192,8 +183,6 @@ int evaluarTests(string fileTestData, string fileTestResult, string fileTestWrit
     int resTest = atoi(line.c_str());
     // convierto a int
 
-    fileWrite << res << endl;
-
     if (res == resTest) {
       cout << "Paso el test " << i << ". Felicitaciones!" << endl;
     } else {
@@ -209,7 +198,6 @@ int evaluarTests(string fileTestData, string fileTestResult, string fileTestWrit
 int main(int argc, char **argv) {
   string fileTestData(argv[1]);
   string fileTestResult(argv[2]);
-  string fileTestWrite(argv[3]);
-  evaluarTests(fileTestData, fileTestResult, fileTestWrite);
+  evaluarTests(fileTestData, fileTestResult);
   return 0;
 }
