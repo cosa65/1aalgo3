@@ -61,7 +61,7 @@ void quitarCiudad(int D[], int km, int j, int i, ramal *acum1, ramal *acum2, ram
   if(acumActual->ciudades==1) acumActual->ciudades--;
 }
 
-void elegirTuplaNueva(int D[], int km, int j, int i, ramal *acum1, ramal *acum2, ramal **acumActualptr){
+void elegirAcumNuevo(int D[], int km, int j, int i, ramal *acum1, ramal *acum2, ramal **acumActualptr){
   //Acá decido que tupla resetear y usar para el nuevo intervalo que voy crear, lo decido tomando la tupla que haya agarrado menos ciudades
   if(acum1->ciudades >= acum2->ciudades){
     acum2->ciudades = (*acumActualptr)->ciudades;
@@ -74,7 +74,7 @@ void elegirTuplaNueva(int D[], int km, int j, int i, ramal *acum1, ramal *acum2,
   }
 }
 
-bool acaboDeEmpezar(int i, int j){
+bool esTuplaNueva(int i, int j){
   //Indica si estoy empezando un nuevo intervalo con mi tupla actual (si todo vale 0)
   return (i-j==1);
 }
@@ -107,18 +107,18 @@ int ejUno(int km, vector<int> ramales) {
 //print(ramales,D,j,i);
     meAlcanza = meAlcanzaCable(D,km,j,i,acum1,acum2,acumActual);  //Devuelve un int que me indica si ALCANZA, ALCANZA_SI_DESCARTO o NO_ALCANZA
     if(meAlcanza){
-      if(acaboDeEmpezar(i,j)) {
+      if(esTuplaNueva(i,j)) {
         acumActual->ciudades++;
       }
       soloAgregarCiudad(D,km,j,i,&acum1,&acum2,acumActual);
       j--;
     } else {
-      if(acaboDeEmpezar(i,j)) {
+      if(esTuplaNueva(i,j)) {
         j--;
         i--;
         D[i]=0;
       } else {
-        elegirTuplaNueva(D,km,j,i,&acum1,&acum2,&acumActual);
+        elegirAcumNuevo(D,km,j,i,&acum1,&acum2,&acumActual);
         i--;
         quitarCiudad(D,km,j,i,&acum1,&acum2,acumActual);
       }
