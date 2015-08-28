@@ -35,17 +35,12 @@ void permutaciones(tuple<Ronda, int> &rondaRes, Ronda &exploradoras, int pos, bi
   } else {
     for (int i = pos ; i < exploradoras.cantidad() ; i++) {
       exploradoras.swap(pos, i);
-      permutaciones(rondaRes, exploradoras, pos+1, amistades);
+      //if (exploradoras.exploradoraEnPos(0) != 'e');
+        permutaciones(rondaRes, exploradoras, pos+1, amistades);
       exploradoras.swap(pos, i);
     }
   }
 }
-
-// pos = 0 hago E llamadas con pos = 1
-// pos = 1 hago E-1 llamadas para cada llamada, dentro de cada paso recursivo cuando pos = 0; cada
-// llamada con pos = 2
-// con pos = T hago E-T llamadas para cada una de las llamadas anteriores
-// productoria entre 1 y E = factorial
 
 string ej3(tuple<Ronda, int> rondaRes, Ronda exploradoras, bigSet amistades) {
   permutaciones(rondaRes, exploradoras, 0, amistades);
@@ -145,68 +140,3 @@ int main(int argc, char **argv) {
   evaluarTests(fileTestData, fileTestResult, fileTestWrite);
   return 0;
 }
-
-
-//void verIgualdad() {
-//  vector<const char*> uno;
-//  vector<const char*> dos;
-//  vector<const char*>::iterator itU;
-//  vector<const char*>::iterator itD;
-//
-//  itU = uno.insert(itU, "a");
-//  itD = dos.insert(itD, "a");
-//  itU = uno.insert(itU, "b");
-//  itD = dos.insert(itD, "b");
-//  if (uno == dos) {
-//    cout << "2 == 3" << endl;
-//  } else {
-//    cout << "NO son iguales" << endl;
-//  }
-//  itU = uno.insert(itU, "c");
-//  itD = dos.insert(itD, "d");
-//  if (uno == dos) {
-//    cout << "conjuntos iguales" << endl;
-//  } else {
-//    cout << "NO son igualasdasdes" << endl;
-//  }
-//}
-  /*
-  vector<char>::iterator itV;
-  char a = char(97); 
-  char b = char(98); 
-  char c = char(99); 
-  char d = char(100); 
-  itV = exploradoras.insert(itV, a);
-  itV = exploradoras.insert(itV, b);
-  itV = exploradoras.insert(itV, c);
-  itV = exploradoras.insert(itV, d);
-
-  int i = 0;
-
-  for (itA = pAmistades.begin() ; itA!=pAmistades.end() ; itA++) {
-    i = 0;
-    for (itV = itA->begin() ; itV!= itA->end() ; itV++) {
-      cout << " elem[" << i << "] " << *itV; 
-      i++;
-    }
-    cout << endl;
-  }
-
-*/
-  //vector<char> exploradoras;
-  //vector<char>::iterator itV;
-  //bigVector r;
-  //char a = char(97); 
-  //char b = char(98); 
-  //char c = char(99); 
-  //char d = char(100); 
-  //itV = exploradoras.insert(itV, d);
-  //itV = exploradoras.insert(itV, c);
-  //itV = exploradoras.insert(itV, b);
-  //itV = exploradoras.insert(itV, a);
-
-  //permutaciones(r, 0, exploradoras);
-  //string res;
-  //res.append("h");
-  //res.append("o");
-  //cout << res << endl;
