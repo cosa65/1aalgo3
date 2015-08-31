@@ -1,0 +1,19 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}El Tel\IeC {\'e}grafo}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}El Problema}{3}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Introducci\IeC {\'o}n}{3}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Ejemplos}{3}{subsubsection.1.1.2}
+\contentsline {subsection}{\numberline {1.2}El Algoritmo}{4}{subsection.1.2}
+\contentsline {section}{\numberline {2}A Medias}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}El Problema}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}El Algoritmo}{5}{subsection.2.2}
+\contentsline {section}{\numberline {3}Girls Scouts}{6}{section.3}
+\contentsline {subsection}{\numberline {3.1}El Problema}{6}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Introducci\IeC {\'o}n}{6}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Ejemplos}{6}{subsubsection.3.1.2}
+\contentsline {subsection}{\numberline {3.2}Estructuras}{7}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}El Algoritmo}{8}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Finalizaci\IeC {\'o}n}{8}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Correctitud}{8}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}Complejidad}{9}{subsubsection.3.3.3}
+\contentsline {subsection}{\numberline {3.4}An\IeC {\'a}lisis temporal}{13}{subsection.3.4}

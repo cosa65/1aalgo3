@@ -58,7 +58,7 @@ void Ronda::imprimir(){
   int i = 0;
   cout << endl;
   while(i < this->exploradoras.size()){
-    cout << " exp[" << i << "] " << this->exploradoras[i];
+    cout << " exp[" << i << "]:  " << this->exploradoras[i];
     i++;
   }
   cout << endl;
@@ -84,14 +84,6 @@ int Ronda::maxDistAmistades(bigSet amistades) {
   return res;
 }
 
-//bool Ronda::esResult() {
-//  return (this->exploradoraEnPos(0) == 'a' && this->exploradoraEnPos(1) == 'b' && 
-//      this->exploradoraEnPos(2) == 'c' && this->exploradoraEnPos(3) == 'f' &&
-//      this->exploradoraEnPos(4) == 'g' && this->exploradoraEnPos(5) == 'd' &&
-//      this->exploradoraEnPos(6) == 'h' && this->exploradoraEnPos(7) == 'e');
-//  
-//}
-
 bool Ronda::operator <(Ronda r) {
   bool res;
   bool sonDistintos = false;
@@ -100,27 +92,20 @@ bool Ronda::operator <(Ronda r) {
     i++;
     sonDistintos = (this->exploradoraEnPos(i) != r.exploradoraEnPos(i));
   }
-  //if (this->exploradoraEnPos(0) == 'a' && this->exploradoraEnPos(1) == 'b' && 
-  //    this->exploradoraEnPos(2) == 'c' && this->exploradoraEnPos(3) == 'f' &&
-  //    this->exploradoraEnPos(4) == 'g' && this->exploradoraEnPos(5) == 'd' &&
-  //    this->exploradoraEnPos(6) == 'h' && this->exploradoraEnPos(7) == 'e')
-  //  cout << "ACA VIEJA EN THIS" << endl;
-
-  //if (r.exploradoraEnPos(0) == 'a' && r.exploradoraEnPos(1) == 'b' && 
-  //    r.exploradoraEnPos(2) == 'c' && r.exploradoraEnPos(3) == 'f' &&
-  //    r.exploradoraEnPos(4) == 'g' && r.exploradoraEnPos(5) == 'd' &&
-  //    r.exploradoraEnPos(6) == 'h' && r.exploradoraEnPos(7) == 'e')
-  //  cout << "ACA VIEJA EN R" << endl;
-
-  //if (this->exploradoraEnPos(i) == 'g' || r.exploradoraEnPos(i) == 'g') {
-  //cout << "exploradores :"; 
-  //  this->imprimir();
-  //  cout << "rondaRes"; 
-  //  r.imprimir();
-  //}
-
 
   return res = (this->exploradoraEnPos(i) < r.exploradoraEnPos(i));
+}
+
+void Ronda::ordenar() {
+  for (int i = 1 ; i < this->exploradoras.size() ; i++) {
+    int j = i;
+    while (j > 0 && this->exploradoras[j] < this->exploradoras[j-1]) {
+      char temp = this->exploradoras[j];
+      this->exploradoras[j] = this->exploradoras[j-1];
+      this->exploradoras[j-1] = temp;
+      j--;
+    }
+  }
 }
 
 int Ronda::sumaDistancias(bigSet amistades) {
@@ -142,7 +127,13 @@ int Ronda::sumaDistancias(bigSet amistades) {
   return res;
 }
 
+int generate(unsigned int *seed, int tam){
+  int valor = rand_r(seed);
+  return (valor % tam);
+}
+
 void Ronda::swap(int i, int j) {
+  // Assert que las posiciones sean validas
   char temp = exploradoras[i];
   exploradoras[i] = exploradoras[j];
   exploradoras[j] = temp;
@@ -150,76 +141,40 @@ void Ronda::swap(int i, int j) {
 
 //int main(){
 //  set<char> C;
-//  set<char> D;
+//  set<set<char>> amistades;
 //  C.insert('a');
 //  C.insert('b');
 //  C.insert('c');
 //  C.insert('d');
 //  C.insert('e');
+////  C.insert('f');
+////  C.insert('g');
+////  C.insert('h');
 //  Ronda r = Ronda(C);
+//  unsigned int seed = time(NULL);
+//  unsigned int tam = r.cantidad();
+//  int pos1;
+//  int pos2;
+//  for(int i = 0; i < (tam*(tam-1))/2; i++) {
+//    set<char> amistad;
+//    pos1 = generate(&seed, tam);
+//    amistad.insert(r.exploradoraEnPos(pos1));
+//    pos2 = generate(&seed, tam);
+//    while (pos1 == pos2) {
+//      pos2 = generate(&seed, tam);
+//    }
+//    amistad.insert(r.exploradoraEnPos(pos2));
+//    amistades.insert(amistad);
+//  }  
+//  set<set<char>>::iterator itA;
+//  set<char>::iterator itV;
+//  for (itA = amistades.begin() ; itA!=amistades.end() ; itA++) {
+//    int i = 0;
+//    for (itV = itA->begin() ; itV!= itA->end() ; itV++) {
+//      cout << " elem[" << i << "] " << *itV; 
+//      i++;
+//    }
+//    cout << endl;
+//  }
 //
-//  D.insert('a');
-//  D.insert('b');
-//  D.insert('d');
-//  D.insert('c');
-//  D.insert('e');
-//  Ronda x = Ronda(D);
-//  x.swap(3, 2);
-//
-//  bool res = r.esMenorQue(x);
-//  if(res)
-//    cout << "dio true" << endl;
-//  if(!res)
-//    cout << "dio false" << endl;
-//
-//
-//  cout << "R DIO ESTO" << endl;
-//  r.imprimir();
-//  cout << "X DIO ESTO" << endl;
-//  x.imprimir();
-//
-//
-//
-//  int cant = r.cantidad();
-//  int pos = r.encontrarPos('a');
-//  int pos1 = r.encontrarPos('b');
-//  int pos2 = r.encontrarPos('c');
-//  int pos3 = r.encontrarPos('d');
-//  cout << "cant: " << cant << endl;
-//  cout << "pos: " << pos << endl;
-//  cout << "pos: " << pos1 << endl;
-//  cout << "pos: " << pos2 << endl;
-//  cout << "pos: " << pos3 << endl;
-//  int dis = r.distancia('a', 'b');
-//  cout << "dis a,b: " << dis << endl;
-//  dis = r.distancia('a', 'c');
-//  cout << "dis a,c: " << dis << endl;
-//  dis = r.distancia('a', 'd');
-//  cout << "dis a,d: " << dis << endl;
-//  dis = r.distancia('c', 'd');
-//  cout << "dis c,d: " << dis << endl;
-//  dis = r.distancia('b', 'd');
-//  cout << "dis b,d: " << dis << endl;
-//  cout << "test sumDists" << endl;
-//  bigSet ami;
-//  set<char> a;
-//  a.insert('a');
-//  a.insert('b');
-//  ami.insert(a);
-//  set<char> b;
-//  b.insert('a');
-//  b.insert('c');
-//  ami.insert(b);
-//  set<char> c;
-//  c.insert('b');
-//  c.insert('d');
-//  ami.insert(c);
-//  int dists = r.sumaDistancias(ami);
-//  cout << "sumDists: " << dists << endl;
-//  cout << "hare" << endl;
-//  int maxDists = r.maxDistAmistades(ami);
-//  cout << "maxDists" << maxDists << endl;
-//
-//
-//  return 0;
 //}
