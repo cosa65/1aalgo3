@@ -1,0 +1,35 @@
+Test 1 catedra:
+ Tiempo de ejecución: 0.016099
+ Tiempo de ejecución: 0.011642
+ Tiempo de ejecución: 0.009397
+ Tiempo de ejecución: 0.00962
+ Tiempo de ejecución: 0.011138
+
+  Prom = 0.11579
+
+Test 2 catedra:
+  Tiempo de ejecución: 0.006154
+  Tiempo de ejecución: 0.005321
+  Tiempo de ejecución: 0.005537
+  Tiempo de ejecución: 0.005354
+  Tiempo de ejecución: 0.006484
+
+  Prom = 0.005770
+
+Test 3 catedra:
+ Tiempo de ejecución: 4.06
+ Tiempo de ejecución: 4.04891
+ Tiempo de ejecución: 4.20581
+ Tiempo de ejecución: 4.04006
+ Tiempo de ejecución: 4.0418
+
+ Prom = 4.079316
+
+Test 4 catedra:
+ Tiempo de ejecución: 0.000166
+ Tiempo de ejecución: 0.000183
+ Tiempo de ejecución: 0.000183
+ Tiempo de ejecución: 0.000186
+ Tiempo de ejecución: 0.000184
+
+ Prom = 0.000180

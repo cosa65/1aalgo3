@@ -34,6 +34,7 @@ class Ronda {
     int maxDistAmistades(bigSet);
 
     bool operator <(Ronda);
+    void ordenar();
 
     int sumaDistancias(bigSet);
     void swap(int, int);

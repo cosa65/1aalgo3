@@ -1,0 +1,56 @@
+Tests pero caso 1:
+ Tiempo de ejecución: 0.000495
+ Tiempo de ejecución: 0.000629
+ Tiempo de ejecución: 0.000625
+ Tiempo de ejecución: 0.000654
+ Tiempo de ejecución: 0.000561
+
+  Prom: 0.000592
+
+Con poda:
+ Tiempo de ejecución: 2.9e-05
+ Tiempo de ejecución: 2.5e-05
+ Tiempo de ejecución: 2.3e-05
+ Tiempo de ejecución: 2.2e-05
+ Tiempo de ejecución: 2.3e-05
+
+ Prom = 2.44e-05
+
+
+Tests pero caso 2:
+
+ Tiempo de ejecución: 0.012519
+ Tiempo de ejecución: 0.011439
+ Tiempo de ejecución: 0.010535
+ Tiempo de ejecución: 0.009672
+ Tiempo de ejecución: 0.009534
+
+ Prom = 0.010739 
+
+con Poda:
+ Tiempo de ejecución: 0.002069
+ Tiempo de ejecución: 0.002052
+ Tiempo de ejecución: 0.002035
+ Tiempo de ejecución: 0.002006
+ Tiempo de ejecución: 0.002135
+
+  Prom = 0.002059
+
+Tests pero caso 3:
+
+ Tiempo de ejecución: 10.9499
+ Tiempo de ejecución: 10.9902
+ Tiempo de ejecución: 10.9656
+ Tiempo de ejecución: 10.773
+ Tiempo de ejecución: 10.7893
+
+ Prom = 10.8936
+
+con Poda:
+ Tiempo de ejecución: 1.3749
+ Tiempo de ejecución: 1.40852
+ Tiempo de ejecución: 1.35724
+ Tiempo de ejecución: 1.35647
+ Tiempo de ejecución: 1.35773
+
+ Prom = 1.370972

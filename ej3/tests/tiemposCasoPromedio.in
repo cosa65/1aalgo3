@@ -1,0 +1,80 @@
+Primer test:
+ Tiempo de ejecución: 0.000219
+ Tiempo de ejecución: 0.000196
+ Tiempo de ejecución: 0.000199
+ Tiempo de ejecución: 0.000195
+ Tiempo de ejecución: 0.000198
+
+  Prom: 0.000199
+
+Segundo test:
+ Tiempo de ejecución: 0.000266
+ Tiempo de ejecución: 0.000116
+ Tiempo de ejecución: 0.00041
+ Tiempo de ejecución: 0.00012
+ Tiempo de ejecución: 0.000121
+
+  Prom: 0.000206
+
+Tercer test:
+   Tiempo de ejecución: 0.000375
+   Tiempo de ejecución: 0.000316
+   Tiempo de ejecución: 0.000311
+   Tiempo de ejecución: 0.000353
+   Tiempo de ejecución: 0.000309
+
+  Prom: 0.000332
+
+Cuarto test:
+ Tiempo de ejecución: 0.007647
+ Tiempo de ejecución: 0.008374
+ Tiempo de ejecución: 0.009771
+ Tiempo de ejecución: 0.008203
+ Tiempo de ejecución: 0.007725
+
+  Prom: 0.008344
+
+Quinto test:
+ Tiempo de ejecución: 0.005486
+ Tiempo de ejecución: 0.005562
+ Tiempo de ejecución: 0.007632
+ Tiempo de ejecución: 0.006847
+ Tiempo de ejecución: 0.005483
+
+  Prom: 0.006202
+
+Sexto test:
+ Tiempo de ejecución: 0.008827
+ Tiempo de ejecución: 0.011209
+ Tiempo de ejecución: 0.009735
+ Tiempo de ejecución: 0.008796
+ Tiempo de ejecución: 0.011406
+
+  Prom: 0.0099946
+
+Septimo test:
+ Tiempo de ejecución: 5.95754
+ Tiempo de ejecución: 5.98069
+ Tiempo de ejecución: 5.6822
+ Tiempo de ejecución: 5.68792
+ Tiempo de ejecución: 5.68508
+
+  Prom: 5.7986
+
+Octavo test:
+ Tiempo de ejecución: 5.27881
+ Tiempo de ejecución: 5.28969
+ Tiempo de ejecución: 5.26864
+ Tiempo de ejecución: 5.37607
+ Tiempo de ejecución: 5.71866
+
+  Prom: 5.386374
+
+Noveno test:
+ Tiempo de ejecución: 8.86046
+ Tiempo de ejecución: 8.86955
+ Tiempo de ejecución: 8.91978
+ Tiempo de ejecución: 8.93237
+ Tiempo de ejecución: 8.86309
+
+  Prom: 8.88905
