@@ -45,23 +45,23 @@ void crearDists(int km, vector<int> ramales, int D[], int n){
   D[n-1]=0;
 }
 
-bool meAlcanzaCable(int D[],int km, int j, int i, ramal acum1, ramal acum2, ramal *acumActual){
+bool meAlcanzaCable(int D[],int km, int j, ramal *acumActual){
   if(acumActual->cable + D[j] <= km) return true;
   return false;
 }
 
-void soloAgregarCiudad(int D[], int km, int j, int i, ramal *acum1, ramal *acum2, ramal *acumActual){
+void soloAgregarCiudad(int D[], int j, ramal *acumActual){
   acumActual->cable+=D[j];
   acumActual->ciudades++;
 }
 
-void quitarCiudad(int D[], int km, int j, int i, ramal *acum1, ramal *acum2, ramal *acumActual){
+void quitarCiudad(int D[], int i, ramal *acumActual){
   acumActual->cable-=D[i];
   acumActual->ciudades--;
   if(acumActual->ciudades==1) acumActual->ciudades--;
 }
 
-void elegirAcumNuevo(int D[], int km, int j, int i, ramal *acum1, ramal *acum2, ramal **acumActualptr){
+void elegirAcumNuevo(ramal *acum1, ramal *acum2, ramal **acumActualptr){
   //Acá decido que tupla resetear y usar para el nuevo intervalo que voy crear, lo decido tomando la tupla que haya agarrado menos ciudades
   if(acum1->ciudades >= acum2->ciudades){
     acum2->ciudades = (*acumActualptr)->ciudades;
@@ -105,12 +105,12 @@ int ejUno(int km, vector<int> ramales) {
   int j=n-2;
   while(j>=0){
 //print(ramales,D,j,i);
-    meAlcanza = meAlcanzaCable(D,km,j,i,acum1,acum2,acumActual);  //Devuelve un int que me indica si ALCANZA, ALCANZA_SI_DESCARTO o NO_ALCANZA
+    meAlcanza = meAlcanzaCable(D,km,j,acumActual);  //Devuelve un int que me indica si ALCANZA, ALCANZA_SI_DESCARTO o NO_ALCANZA
     if(meAlcanza){
       if(esTuplaNueva(i,j)) {
         acumActual->ciudades++;
       }
-      soloAgregarCiudad(D,km,j,i,&acum1,&acum2,acumActual);
+      soloAgregarCiudad(D,j,acumActual);
       j--;
     } else {
       if(esTuplaNueva(i,j)) {
@@ -118,9 +118,9 @@ int ejUno(int km, vector<int> ramales) {
         i--;
         D[i]=0;
       } else {
-        elegirAcumNuevo(D,km,j,i,&acum1,&acum2,&acumActual);
+        elegirAcumNuevo(&acum1,&acum2,&acumActual);
         i--;
-        quitarCiudad(D,km,j,i,&acum1,&acum2,acumActual);
+        quitarCiudad(D,i,acumActual);
       }
     }
   }
