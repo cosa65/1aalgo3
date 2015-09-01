@@ -1,8 +1,9 @@
 import sys
 import os
-
-def printear(n, ms):
-	f = open('myfile.txt', 'a')
+#n=cantidad de cable
+#ms=cantidad de ciudades
+def printear(n, ms, name):
+	f = open(name, 'w+')
 	f.write(n)
 	f.write(os.linesep)	
 	string = ''
@@ -14,4 +15,4 @@ def printear(n, ms):
 	f.close()
 
 if __name__ == '__main__':
-	printear(sys.argv[1], int(sys.argv[2]))
+	printear(sys.argv[1], int(sys.argv[2]), sys.argv[3])
