@@ -3,26 +3,28 @@
 #include <stdlib.h>
 #include <fstream>
 
-int main(int argc, char **argv){
-	string fileName(argv[1]);
-	int times = (int)*argv[2];
-	int size = (int)*argv[3];
-	int km = (int)*argv[4];
-	int length = (int)*argv[5];
+using namespace std;
 
-	ofstream output;
-	output.open(fileName);
+int main(int argc, char **argv){
+	string fileName(argv[1]);		//Nombre del archivo de test generado
+	int tests = atoi(argv[2]);		//Cantidad de casos de tests apsados
+	int ciudades = atoi(argv[3]);	//Cantidad de ciudades
+	int km = atoi(argv[4]);			//Cantidad de cable disponible (>= ciudades)
+	int interval = atoi(argv[5]);	//Maximo length de intervalo entre cada ciudad
+
+	ofstream output(fileName.c_str());
 
 	int acum = 0;
-	int seed = srand(time(NULL));
+	srand(time(NULL));
 
-	for(int i = 0; i<times; i++){
-		km = rand() % km + 1;
+	for(int i = 0; i<tests; i++){
+		km = (rand()%interval)*ciudades + 1;
 		output << km << endl;
-		for(int j = 0; j<size; j++){
-			acum += rand()% length;
+		for(int j = 0; j<ciudades; j++){
+			acum += (rand()%interval) + 1;
 			output << acum << " ";
 		}
+		acum=0;
 		output << endl;
 	}
 
