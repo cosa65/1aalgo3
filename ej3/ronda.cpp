@@ -58,7 +58,7 @@ void Ronda::imprimir(){
   int i = 0;
   cout << endl;
   while(i < this->exploradoras.size()){
-    cout << " exp[" << i << "] " << this->exploradoras[i];
+    cout << " exp[" << i << "]:  " << this->exploradoras[i];
     i++;
   }
   cout << endl;
@@ -96,6 +96,18 @@ bool Ronda::operator <(Ronda r) {
   return res = (this->exploradoraEnPos(i) < r.exploradoraEnPos(i));
 }
 
+void Ronda::ordenar() {
+  for (int i = 1 ; i < this->exploradoras.size() ; i++) {
+    int j = i;
+    while (j > 0 && this->exploradoras[j] < this->exploradoras[j-1]) {
+      char temp = this->exploradoras[j];
+      this->exploradoras[j] = this->exploradoras[j-1];
+      this->exploradoras[j-1] = temp;
+      j--;
+    }
+  }
+}
+
 int Ronda::sumaDistancias(bigSet amistades) {
   int res = 0;
   bigSet::iterator itA;
@@ -115,8 +127,54 @@ int Ronda::sumaDistancias(bigSet amistades) {
   return res;
 }
 
+int generate(unsigned int *seed, int tam){
+  int valor = rand_r(seed);
+  return (valor % tam);
+}
+
 void Ronda::swap(int i, int j) {
+  // Assert que las posiciones sean validas
   char temp = exploradoras[i];
   exploradoras[i] = exploradoras[j];
   exploradoras[j] = temp;
 }
+
+//int main(){
+//  set<char> C;
+//  set<set<char>> amistades;
+//  C.insert('a');
+//  C.insert('b');
+//  C.insert('c');
+//  C.insert('d');
+//  C.insert('e');
+////  C.insert('f');
+////  C.insert('g');
+////  C.insert('h');
+//  Ronda r = Ronda(C);
+//  unsigned int seed = time(NULL);
+//  unsigned int tam = r.cantidad();
+//  int pos1;
+//  int pos2;
+//  for(int i = 0; i < (tam*(tam-1))/2; i++) {
+//    set<char> amistad;
+//    pos1 = generate(&seed, tam);
+//    amistad.insert(r.exploradoraEnPos(pos1));
+//    pos2 = generate(&seed, tam);
+//    while (pos1 == pos2) {
+//      pos2 = generate(&seed, tam);
+//    }
+//    amistad.insert(r.exploradoraEnPos(pos2));
+//    amistades.insert(amistad);
+//  }  
+//  set<set<char>>::iterator itA;
+//  set<char>::iterator itV;
+//  for (itA = amistades.begin() ; itA!=amistades.end() ; itA++) {
+//    int i = 0;
+//    for (itV = itA->begin() ; itV!= itA->end() ; itV++) {
+//      cout << " elem[" << i << "] " << *itV; 
+//      i++;
+//    }
+//    cout << endl;
+//  }
+//
+//}

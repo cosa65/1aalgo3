@@ -1,0 +1,53 @@
+Test Mejor Caso 1:
+ Tiempo de ejecución: 1.2e-05
+ Tiempo de ejecución: 1e-05
+ Tiempo de ejecución: 1.3e-05
+ Tiempo de ejecución: 1.1e-05
+ Tiempo de ejecución: 1.6e-05
+
+ Prom = 1.24*10^-5.
+
+Test Mejor Caso 2:
+ Tiempo de ejecución: 1.5e-05
+ Tiempo de ejecución: 1.8e-05
+ Tiempo de ejecución: 1.5e-05
+ Tiempo de ejecución: 1.8e-05
+ Tiempo de ejecución: 1.4e-05
+
+ Prm = 1.6*10^-5
+
+Test Mejor Caso 3:
+ Tiempo de ejecución: 2.4e-05
+ Tiempo de ejecución: 2e-05
+ Tiempo de ejecución: 1.5e-05
+ Tiempo de ejecución: 2e-05
+ Tiempo de ejecución: 1.6e-05
+
+ Prom = 1.9*10^-5
+
+Test Mejor Caso 4:
+ Tiempo de ejecución: 3.6e-05
+ Tiempo de ejecución: 3.3e-05
+ Tiempo de ejecución: 4e-05
+ Tiempo de ejecución: 3.5e-05
+ Tiempo de ejecución: 4e-05
+
+ Prom = 3.68*10^-5
+
+Test Mejor Caso 5:
+ Tiempo de ejecución: 9.1e-05
+ Tiempo de ejecución: 8.6e-05
+ Tiempo de ejecución: 8.8e-05
+ Tiempo de ejecución: 8.3e-05
+ Tiempo de ejecución: 9.1e-05
+
+ Prom = 8.78*10^-5
+
+Test Mejor Caso 6:
+ Tiempo de ejecución: 0.000212
+ Tiempo de ejecución: 0.000294
+ Tiempo de ejecución: 0.000225
+ Tiempo de ejecución: 0.000224
+ Tiempo de ejecución: 0.000224
+
+ Prom = 0.000236

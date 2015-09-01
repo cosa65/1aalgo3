@@ -7,9 +7,21 @@
 #include <vector>
 #include <set>
 #include <tuple>
+#include <sys/time.h>
 
 #include "ronda.cpp"
 using namespace std;
+
+timeval hare, hare2;
+
+void init_time() {
+  gettimeofday(&hare, NULL);
+}
+
+double get_time() {
+  gettimeofday(&hare2, NULL);
+  return (1000000*(hare2.tv_sec-hare.tv_sec) + (hare2.tv_usec-hare.tv_usec))/1000000.0;
+}
 
 typedef set<set<char>> bigSet;
 
@@ -34,16 +46,24 @@ void permutaciones(tuple<Ronda, int> &rondaRes, Ronda &exploradoras, int pos, bi
 
   } else {
     for (int i = pos ; i < exploradoras.cantidad() ; i++) {
-      exploradoras.swap(pos, i);
-      //if (exploradoras.exploradoraEnPos(0) != 'e');
+      if (exploradoras.exploradoraEnPos(0) == 'a') {
+        exploradoras.swap(pos, i);
         permutaciones(rondaRes, exploradoras, pos+1, amistades);
-      exploradoras.swap(pos, i);
+        exploradoras.swap(pos, i);
+      }
     }
   }
 }
 
 string ej3(tuple<Ronda, int> rondaRes, Ronda exploradoras, bigSet amistades) {
-  permutaciones(rondaRes, exploradoras, 0, amistades);
+  init_time();
+  int n = exploradoras.cantidad();
+  if (amistades.size() != 0 && amistades.size() != (n*(n-1))/2) {
+    permutaciones(rondaRes, exploradoras, 0, amistades);
+  }
+  else {
+    get<0>(rondaRes).ordenar();
+  }
   string res;
 
   // Meto el resultado en un string
@@ -56,7 +76,7 @@ string ej3(tuple<Ronda, int> rondaRes, Ronda exploradoras, bigSet amistades) {
   for (int i = 0 ; i < get<0>(rondaRes).cantidad() ; i++) {
     res.push_back(get<0>(rondaRes).exploradoraEnPos(i));
   }
-
+  cout << "Tiempo de ejecución: " << get_time() << endl;
   return res;
 }
 
@@ -101,7 +121,8 @@ int evaluarTests(string fileTestData, string fileTestResult, string fileTestWrit
     // meter lo que quiera sin verificar repetidos
     tuple <Ronda, int> rondaRes (Ronda(expl), 120);
 
-    res = ej3(rondaRes, exploradoras, amistades);
+    for (int k = 0 ; k < 5 ; k++)
+      res = ej3(rondaRes, exploradoras, amistades);
 
     //if (res != ("1 xyz"))
     //  res.push_back('\r');
