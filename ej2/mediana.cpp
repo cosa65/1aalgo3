@@ -28,34 +28,31 @@ int medianaSubarreglo(int, priority_queue<int>&, priority_queue<int, vector<int>
 int main () {
 	string iline; 
 	stringstream oss;
-	ifstream ifile ("test100000.in"); //para generar secuencias random --->  ./rand filename longitudLista maximoValor
+	ifstream ifile ("testRandom/test10000.in"); //para generar secuencias random --->  ./rand filename longitudLista maximoValor
 	ofstream ofile ("testx.out");
-  ofstream tfile ("tiempo100000.txt");
-  float suma;
+  ofstream tfile ("t10000.txt");
+  float suma = 0;
   unsigned int i;
-  
-  for ( i = 0; i < 100; i++ )
-  {
-	  while ( getline (ifile,iline) )
-	  {
-        
-	    mediana(iline, oss);
-      
-	  	ofile << oss.rdbuf();
-	  	if (ifile.eof()) break;
-	  	ofile << "\n";
-	  }
 
-	  ifile.close();
-    suma += get_time();
+	while ( getline (ifile,iline) )
+  {
+    cout << "hare" << endl;
+    for ( i = 0; i < 100; i++ )
+    {
+	    mediana(iline, oss);
+      suma += get_time();
+	  }
+	  ofile << oss.rdbuf();
+	  if (ifile.eof()) break;
+	  ofile << "\n";
+  }
+  ifile.close();
+  tfile << "Promedio: " << fixed << suma/100.0 << endl;
+  tfile.close();
+  return 0;
  //   tfile << "Tiempo de ejecución: " << fixed << get_time() << endl;
  //   tfile << "\n";
-  }
-  tfile << "Promedio: " << suma/(float)i << endl;
-  tfile.close();
-	return 0;
 }
-
 
 void mediana(string line, stringstream& oss)
 {
@@ -113,7 +110,7 @@ int medianaSubarreglo(int prox, priority_queue<int>& menores, priority_queue<int
 		}
 	}
 
-	cout << prox << endl;
+	//cout << prox << endl;
 
 	if (menores.size() > mayores.size())
 		return menores.top();
