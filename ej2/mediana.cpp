@@ -28,7 +28,7 @@ int medianaSubarreglo(int, priority_queue<int>&, priority_queue<int, vector<int>
 int main () {
 	string iline; 
 	stringstream oss;
-	ifstream ifile ("test100000.in");
+	ifstream ifile ("test100000.in"); //para generar secuencias random --->  ./rand filename longitudLista maximoValor
 	ofstream ofile ("testx.out");
   ofstream tfile ("tiempo100000.txt");
   float suma;
