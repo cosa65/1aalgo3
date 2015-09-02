@@ -15,8 +15,8 @@ int main () {
 
 	string iline;
 	stringstream oss;
-	ifstream ifile ("Tp1Ej2.in");
-	ofstream ofile ("Tp1Ej2.out");
+	ifstream ifile ("test.in");
+	ofstream ofile ("test.out");
 
 	while ( getline (ifile,iline) )
 	{
