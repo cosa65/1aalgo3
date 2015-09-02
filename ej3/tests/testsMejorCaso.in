@@ -1,6 +1,12 @@
+a ;b ;c
 a ;b ;c ;d
-a ;b ;c ;d ;e; f
+a ;b ;c ;d ;e
+a ;b ;c ;d ;e ;f
+a ;b ;c ;d ;e ;f ;g
 a ;b ;c ;d ;e ;f ;g ;h
+a bc;b ac;c ab
 a bcd;b acd;c abd;d abc
+a bcde;b acde;c abde;d abce;e abcd
 a bcdef;b acdef;c abdef;d abcef;e abcdf
-a bcdefgh;b acdefgh;c abdefgh;d abcefgh;e abcdfgh;f abcdegh;g abcdefh
+a bcdefg;b acdefg;c abdefg;d abcefg;e abcdfg;f abcdeg;g abcdef
+a bcdefgh;b acdefgh;c abdefgh;d abcefgh;e abcdfgh;f abcdegh;g abcdefh;h abcdefg

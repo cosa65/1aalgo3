@@ -13,6 +13,7 @@
 using namespace std;
 
 timeval hare, hare2;
+double acum = 0;
 
 void init_time() {
   gettimeofday(&hare, NULL);
@@ -46,11 +47,11 @@ void permutaciones(tuple<Ronda, int> &rondaRes, Ronda &exploradoras, int pos, bi
 
   } else {
     for (int i = pos ; i < exploradoras.cantidad() ; i++) {
-      if (exploradoras.exploradoraEnPos(0) == 'a') {
+//      if (exploradoras.exploradoraEnPos(0) == 'a') {
         exploradoras.swap(pos, i);
         permutaciones(rondaRes, exploradoras, pos+1, amistades);
         exploradoras.swap(pos, i);
-      }
+//      }
     }
   }
 }
@@ -76,7 +77,7 @@ string ej3(tuple<Ronda, int> rondaRes, Ronda exploradoras, bigSet amistades) {
   for (int i = 0 ; i < get<0>(rondaRes).cantidad() ; i++) {
     res.push_back(get<0>(rondaRes).exploradoraEnPos(i));
   }
-  cout << "Tiempo de ejecución: " << get_time() << endl;
+  acum += get_time(); 
   return res;
 }
 
@@ -121,9 +122,14 @@ int evaluarTests(string fileTestData, string fileTestResult, string fileTestWrit
     // meter lo que quiera sin verificar repetidos
     tuple <Ronda, int> rondaRes (Ronda(expl), 120);
 
-    for (int k = 0 ; k < 5 ; k++)
+    for (int k = 0 ; k < 100 ; k++) 
       res = ej3(rondaRes, exploradoras, amistades);
 
+    double prom = acum/100;
+    fileWrite << "Test numero: " << j << endl;
+    fileWrite << fixed << acum << endl;
+    fileWrite << fixed << prom << endl;
+    acum = 0;
     //if (res != ("1 xyz"))
     //  res.push_back('\r');
 

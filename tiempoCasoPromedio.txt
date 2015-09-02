@@ -1,0 +1,57 @@
+Test numero: 1
+0.002778
+0.000028
+Test numero: 2
+0.002870
+0.000029
+Test numero: 3
+0.002898
+0.000029
+Test numero: 4
+0.014291
+0.000143
+Test numero: 5
+0.000573
+0.000006
+Test numero: 6
+0.008165
+0.000082
+Test numero: 7
+0.130764
+0.001308
+Test numero: 8
+0.094345
+0.000943
+Test numero: 9
+0.147716
+0.001477
+Test numero: 10
+1.162670
+0.011627
+Test numero: 11
+1.047083
+0.010471
+Test numero: 12
+0.933333
+0.009333
+Test numero: 13
+11.869629
+0.118696
+Test numero: 14
+11.862737
+0.118627
+Test numero: 15
+13.518851
+0.135189
+Test numero: 16
+98.801671
+0.988017
+Test numero: 17
+92.296450
+0.922965
+Test numero: 18
+105.746974
+1.057470
+Test numero: 19
+0.000092
+0.000001

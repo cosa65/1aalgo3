@@ -147,8 +147,8 @@ void Ronda::swap(int i, int j) {
 //  C.insert('c');
 //  C.insert('d');
 //  C.insert('e');
-////  C.insert('f');
-////  C.insert('g');
+//  C.insert('f');
+//  C.insert('g');
 ////  C.insert('h');
 //  Ronda r = Ronda(C);
 //  unsigned int seed = time(NULL);

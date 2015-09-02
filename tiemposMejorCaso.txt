@@ -1,0 +1,36 @@
+Test numero: 1
+0.000152
+0.000002
+Test numero: 2
+0.000138
+0.000001
+Test numero: 3
+0.000148
+0.000001
+Test numero: 4
+0.000152
+0.000002
+Test numero: 5
+0.000197
+0.000002
+Test numero: 6
+0.000182
+0.000002
+Test numero: 7
+0.000665
+0.000007
+Test numero: 8
+0.001317
+0.000013
+Test numero: 9
+0.002264
+0.000023
+Test numero: 10
+0.002529
+0.000025
+Test numero: 11
+0.003307
+0.000033
+Test numero: 12
+0.004495
+0.000045

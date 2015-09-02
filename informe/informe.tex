@@ -14,7 +14,7 @@
 \usepackage{multicol}
 \usepackage[absolute]{textpos}
 \usepackage{hyperref}
-\usepackage[inline]{enumitem}
+\usepackage{enumitem}
 %\usepackage{graphicx}
 \usepackage{aed2-tad, aed2-symb, aed2-itef}
 \usepackage{algpseudocode}
@@ -274,13 +274,17 @@ Se plantea en este caso el problema de, dados:
 
 Hallar la manera de sentarlas en una ronda, de manera tal que las niñas que son amigas, estén a una distancia mínima. Formalmente dicho, se pide que la sumatoria de las distancias entre todos los pares de amigas, sea la mínima. Como resultado, se debe devolver la distancia máxima entre los pares de amigas de la ronda, junto con la misma. 
 
-El algoritmo debe funcionar con orden de complejidad O($e^{e}  a^{2}$), donde \textbf{e} es la cantidad de exploradoras, y \textbf{a} es la cantidad de amistades.
+El algoritmo debe funcionar con orden de complejidad estrictamente mejor que O($e^{e}  a^{2}$), donde \textbf{e} es la cantidad de exploradoras, y \textbf{a} es la cantidad de amistades.
 
 \subsubsection{Ejemplos}
 
+\vspace{2mm}
+\textbf{Ejemplo 1}
+\vspace{2mm}
+
 A modo de ejemplo de qué plantea el problema, y sus soluciones, se observan casos:\\ 
 
-Dado el grupo de exploradoras conformado por \{a, b, c, d, e\}, y sus respectivas amistades 
+Dado el grupo de exploradoras conformado por \{a, b, c, d, e\}, y sus respectivas amistades: 
 
 \begin{center}
 \{\{a,b\}\{a,c\}\{a,d\}\{a,e\}\{b,c\}\{b,d\}\{b,e\}\{c,d\}\{c,e\}\}
@@ -308,7 +312,14 @@ amistades tiene su correspondiente distancia en la ronda. Por ejemplo, una posib
 \end{center}
 \end{figure}
 
-Donde la sumatoria de las distancias entre todos los pares de amigas en esta ronda es 14. (d(a,b) = 1, d(a,c) = 2, d(a,d) = 2, d(a,e) = 1, d(b,c) = 1, d(b,d) = 2, d(b,e) = 2, d(c,d) = 1, d(c,e) = 2, donde d(x,y) es la distancia entre x e y).
+Donde la sumatoria de las distancias entre todos los pares de amigas en esta ronda es 14.
+\begin{itemize}
+  \item d(a,b) = 1   \ \ \ \inlineitem d(a,c) = 2 \ \ \ \inlineitem d(a,d) = 2
+  \item d(a,e) = 1   \ \ \ \inlineitem d(b,c) = 1 \ \ \ \inlineitem d(b,d) = 2
+  \item d(b,e) = 2   \ \ \ \inlineitem d(c,d) = 1 \ \ \ \inlineitem d(c,e) = 2
+\end{itemize}
+
+Donde d(x,y) es la distancia entre x e y.
 
 Como el problema nos pedía la ronda cuya distancia entre los pares de amigas sea la mínima, podemos 
 ver intuitivamente como esta ronda no es óptima ya que \textbf{d} y \textbf{e} no son amigas, sin embargo
@@ -335,7 +346,21 @@ pares de amigas es menor):
 \end{center}
 \end{figure}
 
-La sumatoria de las distancias entre todos los pares de amigas en esta ronda es 13
+\begin{itemize}
+  \item d(a,b) = 1   \ \ \ \inlineitem d(a,c) = 2 \ \ \ \inlineitem d(a,d) = 2
+  \item d(a,e) = 1   \ \ \ \inlineitem d(b,c) = 2 \ \ \ \inlineitem d(b,d) = 1
+  \item d(b,e) = 2   \ \ \ \inlineitem d(c,d) = 1 \ \ \ \inlineitem d(c,e) = 1
+\end{itemize}
+
+Por ende, la sumatoria de las distancias entre todos los pares de amigas en esta ronda es 13.
+\vspace{2mm}
+\textbf{Ejemplo 2}\\
+\vspace{2mm}
+Dado el grupo de exploradoras conformado por \{a, b, c\} donde ninguna es amiga de otra. En este caso tenemos que 
+cualquier manera de sentar al grupo de exploradoras es solución al problema, porque no hay ninguna restricción al respecto.
+
+Como todas las posibles permutaciones de la ronda son soluciones posibles, al ser \{a, b, c\} la menor lexicográficamente, 
+es la solución al problema.
 
 \subsection{Estructuras}
 
@@ -357,10 +382,10 @@ Posibles estructuras que se pueden utilizar para implementar las rondas son:
 La estructura que utilizamos para resolver el problema de representación de la Ronda 
 fue un Vector que modela el comportamiento de una 
 lista circular a través de las operaciones provistas por la clase Ronda. Por ejemplo [a,b,c,d,e] es una 
-posible representación de la ronda donde, al modelar el hecho de que es circular,
-la distancia entre \textbf{a} y \textbf{e} es 1 en vez de 4 porque del último se puede llegar al primero.
+posible representación de la ronda donde, teniendo en cuenta el hecho de que es circular,
+se puede observar la distancia entre \textbf{a} y \textbf{e} es 1 en vez de 4 porque del último se puede llegar al primero.
 
-Por el otro lado sus respectivas amistades, se pueden representar, por ejemplo, con:
+Por el otro lado sus respectivas amistades se pueden representar, por ejemplo, con:
 \begin{itemize}
 \item Matriz de booleanos (1 indica amistad, 0 no).
 \item Diccionario con claves exploradoras y significado sus amigas.
@@ -368,7 +393,7 @@ Por el otro lado sus respectivas amistades, se pueden representar, por ejemplo, 
 \item Conjunto de conjuntos.
 \end{itemize}
 La estructura que utilizamos para resolver el problema de representación de las amistades fue un conjunto de
-conjuntos, ya que nos interesó modelar el hecho de la simetría entre las amistades, y que la amistad 
+conjuntos, ya que nos interesó representar la simetría entre las amistades y que, por ejemplo, la amistad 
 \{a,b\} es igual a \{b,a\}.
 
 Además, nuestro contexto de uso (del cual se desprende la complejidad) no 
@@ -382,10 +407,10 @@ En esta sección mostraremos un pseudocódigo de nuestra implementación, junto 
 de complejidad.
 
 La idea del algoritmo utilizado para resolver el problema fue, dado que tenemos que encontrar la ronda 
-que mínimiza la sumatoria de la distancias, generar todas las posibles permutaciones de la ronda de exploradoras,
+que mínimiza la sumatoria de la distancias, generar todas las posibles permutaciones de la ronda de exploradoras
 y elegir la óptima. Para comparar entre dos rondas cuál es mejor a la solución del problema, 
 recorremos el conjunto de amistades y para cada una de ellas sumamos su distancia en un acumulador. Luego, nos quedamos
-con la que dicha sumatoria sea menor.
+con aquella para la que dicha sumatoria sea menor.
 
 Sólo por un tema de notación, al conjunto de conjuntos de char lo renombramos como bigSet, para hacer menos 
 engorroso el código.
@@ -430,6 +455,8 @@ Nota: $\Pi_0$ y $\Pi_1$ son utilizados para referirse al primer y segundo elemen
 \end{center} 
 
 La complejidad del algoritmo es O($e!*e*a + e*a + e^{2}$).
+
+Observamos primero la suma entre ($e!*e*a + e^{2}$)
 \begin{itemize}
 \item Como $e! = (e*(e-1)*(e-2)*...*1) > e \\ \implies $ $e \in$ O($e!$). \\ Luego, podemos escribir a 
   ($e!*e*a + e^2$) = ($e *(e!*a + e)$) $\in$ O($e *(e!*a + e)$) \\ $\implies$ O($e*max(e!*a, e)$) \\ lo cual, por lo demostrado anteriormente, es equivalente a O($e!*a*e$)
@@ -462,7 +489,7 @@ En total el ciclo cuesta:
 $\sum\limits_{i=2}^e i = \frac{e*(e-1)}{2} - 1 \in O(e^2)$
 \end{center}
 
-Por último, la complejidad de \textbf{exploradoraEnPos} y \textbf{cantidad} son constantes ya que están
+Por último, las complejidades de \textbf{exploradoraEnPos} y \textbf{cantidad} son constantes ya que están
 directamente implementadas con el operator $[]$ y la función $size()$ de la clase Vector de c++.
 
 Ahora pasaremos a demostrar las complejidades de los algoritmos auxiliares.
@@ -675,56 +702,6 @@ primer y segundo elemento del conjunto amistad son O(1) ya que el tamaño de ese
 2 (las amistades son de a pares). Luego obtiene la distancia entre las dos exploradoras llamando a la 
 función \textbf{distancia} la cual es lineal en la cantidad de exploradoras. Por ende la complejidad
 total del ciclo, y de la función, es O($e*a$). 
-\subsubsection{Finalización}
-
-En esta sección demostraremos que dada cualquier entrada que cumpla con la especificación del problema el 
-algoritmo termina. Que una entrada de datos cumpla con la especificación del problema significa que no haya
-datos sin sentido. En nuestro caso sería que todas las exploradoras en el conjunto de amistades estén en la  
-ronda, y que todas las exploradoras de la ronda estén en el conjunto de amistades (la doble inclusión).
-
-Para demostrar que el algoritmo termina, hay que analizar cuatro partes del mismo:
-\begin{itemize}
-  \item La llamada a la función \textbf{permutaciones}.
-  \item La llamada a la función \textbf{ordenar}.
-  \item La llamada a la función \textbf{maxDistAmistades}.
-  \item El ciclo \textbf{for} que itera sobre la ronda.
-\end{itemize}
-
-La función \textbf{permutaciones} consiste en, de manera recursiva, calcular todas las permutaciones posibles 
-de una ronda, es decir, todas las posibles maneras de sentar al grupo de exploradoras.
-La función es llamada con un parámetro \textbf{pos} que indica la posición sobre la cual se está realizando 
-la permutación actual. Esta variable se inicializa en cero, apuntando así al comienzo de la ronda.
-
-El caso base de la función es cuando ya se terminó de calcular una permutación posible, que equivaldría a 
-preguntar si el parámetro \textbf{pos} llegó al final del arreglo. En ese caso se compara la 
-permutación calculada con la obtenida previamente en los otros pasos recursivos y, en caso de ser menor, se 
-la utiliza como nueva ronda óptima hasta el momento.
-
-El caso recursivo consiste en iterar sobre la ronda de exploradoras desde la posición indicada por \textbf{pos} 
-hasta el final de la ronda y, por cada iteración, permutar el elemento indicado por esa iteración con la indicada por 
-\textbf{pos} en ese caso recursivo. 
-Como en cada iteración se llama recursivamente a la función con \textbf{pos} aumentado en 1, sucede que:
-
-\begin{itemize}
-\item Cuando pos = 0 el algoritmo realiza $e$ llamadas recursivas con pos = 1.
-\item Cuando pos = 1 el algoritmo realiza $e-1$ llamadas recursivas con pos = 2.
-\item Cuando pos = n el algoritmo realiza $e-n$ llamadas recursivas con pos = n+1.
-\end{itemize}
-
-Por ende, como podemos ver que en cada paso recursivo se reduce el tamaño del problema al aumentar la variables 
-\textbf{pos} en 1, podemos afirmar que eventualmente para todas las ramas del árbol de recursión se llega al caso base.
-
-La función ordenar consiste en ordenar la ronda de menor a mayor utilizando el algoritmo \textbf{insertion sort}.
-%Justificar por que funciona insertio sort??
-
-La función \textbf{maxDistAmistades} consiste en iterar sobre el conjunto de amistades y, para cada amistad, 
-calcular utilizando una búsqueda secuencial en la ronda de exploradoras la posición de cada una, y su distancia.
-Luego, en cada iteración, se guarda la máxima de las distancias calculadas.
-Como el algoritmo instancia un iterador que recorre desde el principio hasta el final el conjunto de amistades 
-una única vez, podemos asegurar que finaliza.
-
-El \textbf{for} del final del algoritmo finaliza ya que recorre una única vez de manera secuencial la ronda 
-de exploradoras resultado.
 
 \subsubsection{Correctitud}
 
@@ -786,6 +763,59 @@ en uno de estos dos casos.
 
 
 
+
+
+\subsubsection{Finalización}
+
+En esta sección demostraremos que dada cualquier entrada que cumpla con la especificación del problema el 
+algoritmo termina. Que una entrada de datos cumpla con la especificación del problema significa que no haya
+datos sin sentido. En nuestro caso sería que todas las exploradoras en el conjunto de amistades estén en la  
+ronda, y que todas las exploradoras de la ronda estén en el conjunto de amistades (la doble inclusión).
+
+Para demostrar que el algoritmo termina, hay que analizar cuatro partes del mismo:
+\begin{itemize}
+  \item La llamada a la función \textbf{permutaciones}.
+  \item La llamada a la función \textbf{ordenar}.
+  \item La llamada a la función \textbf{maxDistAmistades}.
+  \item El ciclo \textbf{for} que itera sobre la ronda.
+\end{itemize}
+
+La función \textbf{permutaciones} consiste en, de manera recursiva, calcular todas las permutaciones posibles 
+de una ronda, es decir, todas las posibles maneras de sentar al grupo de exploradoras.
+La función es llamada con un parámetro \textbf{pos} que indica la posición sobre la cual se está realizando 
+la permutación actual. Esta variable se inicializa en cero, apuntando así al comienzo de la ronda.
+
+El caso base de la función es cuando ya se terminó de calcular una permutación posible, que equivaldría a 
+preguntar si el parámetro \textbf{pos} llegó al final del arreglo. En ese caso se compara la 
+permutación calculada con la obtenida previamente en los otros pasos recursivos y, en caso de ser menor, se 
+la utiliza como nueva ronda óptima hasta el momento.
+
+El caso recursivo consiste en iterar sobre la ronda de exploradoras desde la posición indicada por \textbf{pos} 
+hasta el final de la ronda y, por cada iteración, permutar el elemento indicado por esa iteración con la indicada por 
+\textbf{pos} en ese caso recursivo. 
+Como en cada iteración se llama recursivamente a la función con \textbf{pos} aumentado en 1, sucede que:
+
+\begin{itemize}
+\item Cuando pos = 0 el algoritmo realiza $e$ llamadas recursivas con pos = 1.
+\item Cuando pos = 1 el algoritmo realiza $e-1$ llamadas recursivas con pos = 2.
+\item Cuando pos = n el algoritmo realiza $e-n$ llamadas recursivas con pos = n+1.
+\end{itemize}
+
+Por ende, como podemos ver que en cada paso recursivo se reduce el tamaño del problema al aumentar la variables 
+\textbf{pos} en 1, podemos afirmar que eventualmente para todas las ramas del árbol de recursión se llega al caso base.
+
+La función ordenar consiste en ordenar la ronda de menor a mayor utilizando el algoritmo \textbf{insertion sort}.
+%Justificar por que funciona insertio sort??
+
+La función \textbf{maxDistAmistades} consiste en iterar sobre el conjunto de amistades y, para cada amistad, 
+calcular utilizando una búsqueda secuencial en la ronda de exploradoras la posición de cada una, y su distancia.
+Luego, en cada iteración, se guarda la máxima de las distancias calculadas.
+Como el algoritmo instancia un iterador que recorre desde el principio hasta el final el conjunto de amistades 
+una única vez, podemos asegurar que finaliza.
+
+El \textbf{for} del final del algoritmo finaliza ya que recorre una única vez de manera secuencial la ronda 
+de exploradoras resultado.
+
 \subsection{Análisis temporal}
 
 En esta sección mostraremos la eficiencia del algoritmo, y cómo se comporta dependiendo del input. Así distinguiremos 
@@ -826,7 +856,8 @@ Para todos los casos, utilizamos grupos de exploradoras de tamaño 3, 5, y 8: \\
 Por cada tamaño calculamos el tiempo para los dos mejores casos, a la izquierda cuando el conjunto de amistades es 
 nulo, y a la derecha cuando el conjunto de amistades es el más grande posible.
 Podemos notar como los casos donde el conjunto de amistades es el máximo el algoritmo tarda más. Esto se debe a que 
-(aca debería dar una explicación de porque almacenar más datos en memoria hace que vaya más lento y poner que anda mucho mas graficos que los graficos de abajo).
+al almacenar en memoria más estructuras, la ejecución del algoritmo ralentiza.
+
 \\
 
 \textbf{Caso peor y promedio} \\
