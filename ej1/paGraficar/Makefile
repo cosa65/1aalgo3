@@ -8,18 +8,18 @@ all: $(BINARIES)
 
 mejorCaso:
 
-	@python src/casos.py 0 $(ciudades) mejorCaso.in mejor $(length)
+	@python src/casos.py 0 $(ciudades) mejorCaso.in mejor $(ciudades)*10
 
 peorCaso:
 
 	@g++ src/random.cpp -o random
-	@./random peorCaso.in 1 $(ciudades) $(length) peor
+	@./random peorCaso.in 1 $(ciudades) $(ciudades)*1000 peor
 	@rm -f random
 
 random:
 
 	@g++ src/random.cpp -o random
-	@./random random.in 1 $(ciudades) $(length) random
+	@./random random.in 1 $(ciudades) $(ciudades)*1000 random
 	@rm -f random
 
 run:
