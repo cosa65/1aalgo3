@@ -1,0 +1,176 @@
+%!TEX root = tp2.tex
+
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{modulos}
+
+\RequirePackage{lambda}
+%\RequirePackage{xparse}
+\RequirePackage{scrextend}
+\RequirePackage{calc}
+%\RequirePackage{varwidth}
+\RequirePackage{textcomp}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{array}
+\RequirePackage{xspace}
+\RequirePackage{enumitem}
+
+\newenvironment{alignhere}{\hspace*{-\tabcolsep}\begin{tabular}[t]{l}}{\end{tabular}\hspace*{-\tabcolsep}}
+
+\newcommand\quelle[1]{{%
+      \unskip\nobreak\hfil\penalty50
+      \hskip2em\hbox{}\nobreak\hfil#1%
+      \parfillskip=0pt \finalhyphendemerits=0 \par}}
+
+\def\EOLSep#1{#1\EOLUnlistize@{}}
+\def\CommaSep#1{#1\Unlistize@{}}
+\def\EOLUnlistize@#1{#1\Foldr\EOLize{}}
+\def\EOLize#1#2{,\\#1#2}
+
+\def\trim#1{\ignorespaces#1\unskip} 
+
+\newcommand{\true}{\text{\textbf{true}}}
+\newcommand{\false}{\text{\textbf{true}}}
+%\newcommand{\igobs}{=_{obs}}
+\newcommand{\larr}{\leftarrow}
+\newcommand{\rarr}{\!\rightarrow\!}
+\newcommand{\NULL}{\textsc{Null}\xspace}
+\newcommand{\nigobs}{\neq_\text{obs}}
+\newcommand{\Var}[1]{\State \textbf{var} \tannots{#1}}
+
+\let\mathsigma=\sigma
+\renewcommand\sigma{\ensuremath{\mathsigma\xspace}}
+\let\mathalpha=\alpha
+\renewcommand\alpha{\ensuremath{\mathalpha\xspace}}
+\let\mathbeta=\beta
+\renewcommand\beta{\ensuremath{\mathbeta\xspace}}
+\let\mathkappa=\kappa
+\renewcommand\kappa{\ensuremath{\mathkappa\xspace}}
+
+
+\let\octothorpe=\#
+\renewcommand\#{\text{\raisebox{.1ex}{\small\octothorpe}}}
+
+\newcommand{\ifnempty}[2]{\ifx#1\empty\else#2\fi}
+
+\newcommand\bO{\ensuremath{\mathcal O}}
+\newcommand\x{\ensuremath{\times}\xspace}
+
+\renewcommand\tad\textsc
+\newcommand{\tipo}[1]{\texttt{\upshape{#1}}}
+\newcommand\oper\textsc
+
+\newcommand{\var}[1]{\text{\textit{#1}}}
+\newcommand{\hvar}[1]{\widehat{\var{#1}}}
+\newcommand{\fun}[1]{\text{\normalfont#1}}
+\newcommand{\Fun}[1]{\text{\normalfont\textsc{#1}}}
+
+\newcommand{\tads}[1]{\CommaSep{\Map{\Compose\tad\trim}{\Listize[#1]}}}
+\newcommand{\tipos}[1]{\CommaSep{\Map{\Compose\tipo\trim}{\Listize[#1]}}}
+
+\newcommand{\encab}[1]{\par\vspace{.5em}\textbf{#1}\par}
+
+\def\encabsep{0.19}
+
+\newcommand{\encabizq}[3][\encabsep]{%
+	\par\makebox[#1\textwidth][l]{\textbf{#2}}%
+	\begin{alignhere}#3\end{alignhere}\par%
+}
+
+\newcommand{\sexc}[1]{\encabizq{se explica con}{\tads{#1}}}
+\newcommand{\generos}[1]{\encabizq[\encabsep]{géneros}{\tipos{#1}}}
+\newcommand{\usa}[1]{\encabizq{usa}{\tads{#1}}}
+
+\newcommand{\funcion}[1]{\encabizq[\encabsep]{función}{#1}}
+
+\newcommand{\serc}[2]{\encab{se representa con \tipo{#1}#2}}
+\newcommand{\donde}[2]{\\\textbf{donde} \tipo{#1} \textbf{es} \tipo{#2}}
+
+
+\newenvironment{parametros}
+{\encab{parámetros formales}\def\encabsep{0.13}\begin{addmargin}[1.5em]{0pt}}
+{\end{addmargin}}
+
+\newcommand{\opitem}[2]{%
+	\\\textbf{#1}\quad%
+	\{\begin{minipage}[t]{\textwidth - \widthof{\textbf{#1}\quad - 5em}}%
+	#2\}
+	\end{minipage}%
+}
+
+\def\ptannot#1{\expandafter\tannot@#1\relax}
+\def\tannot#1{\expandafter\tannot@@#1\relax}
+\def\tannot@#1 #2\relax{\textbf{#1} \tannot@@#2\relax}
+\def\tannot@@#1:#2\relax{\var{\trim{#1}} : \tipo{\trim{#2}}}
+
+\def\tmannot#1{\expandafter\tmannot@#1\relax}
+\def\tmannot@#1:#2\relax{\fun{\trim{#1}} : \tipo{\trim{#2}}}
+
+\newcommand{\tannots}[1]{\CommaSep{\Map{\Compose\tannot\trim}{\Listize[#1]}}}
+\newcommand{\ptannots}[1]{\CommaSep{\Map{\Compose\ptannot\trim}{\Listize[#1]}}}
+
+\newcommand{\operacion}[8]{%
+	\oper{#1}(\expandafter\ifnempty{#2}{\ptannots{#2}})%
+	\expandafter\ifx#3\empty\else\ $\longrightarrow$ \tannot{#3}\fi\\%
+	\textbf{Pre} $\equiv$ \{\begin{alignhere}#4\}\end{alignhere} \\
+	\textbf{Post} $\equiv$ \{\begin{alignhere}#5\}\end{alignhere} \\
+	\textbf{Descripción:} \begin{minipage}[t]{\textwidth - \widthof{\textbf{Descripción:} }}#6\par\end{minipage}\\
+	\textbf{Complejidad:} \begin{alignhere}#7\end{alignhere}
+	\ifx#8\@empty\else\\\textbf{Aliasing:} #8\fi%
+}
+
+\newcommand{\algoritmo}[5]{%
+	\oper{#1}(\expandafter\ifx#2\empty\else\CommaSep{\Map{\Compose\ptannot\trim}{\Listize[#2]}}\fi)%
+	\expandafter\ifx#3\empty\else\ $\longrightarrow$ \tannot{#3}\fi%
+	\ifnempty{#4}{\begin{algorithmic}#4\end{algorithmic}}%
+	\ifnempty{#5}{
+		\vspace{-1\baselineskip minus 10pt}\quelle{\makebox[14em]{\hrulefill}}%
+		\vspace{-\parskip}\complejidad{#5}%
+	}\par%
+}
+
+\newcommand{\auxiliar}[7]{%
+	\oper{#1}(\expandafter\ifx#2\empty\else\CommaSep{\Map{\Compose\ptannot\trim}{\Listize[#2]}}\fi)%
+	\expandafter\ifx#3\empty\else\\ $\longrightarrow$ \tannot{#3}\fi\\%
+	\textbf{Pre} $\equiv$ \{\begin{alignhere}#4\}\end{alignhere} \\
+	\textbf{Post} $\equiv$ \{\begin{alignhere}#5\}\end{alignhere}
+	\ifnempty{#6}{\begin{algorithmic}#6\end{algorithmic}}%
+	\ifnempty{#7}{
+		\vspace{-\baselineskip}\quelle{\makebox[14em]{\hrulefill}}%
+		\vspace{-\parskip}\complejidad{#7}%
+	}\par%
+}
+
+\newcommand{\complejidad}[1]{\quelle{\makebox[13em][l]{#1}}}
+
+\newcommand{\tup}[1]{\langle#1\rangle}
+
+\newcommand{\tupla@}[2][\EOLSep]{%
+	{\normalfont\tipo{tupla}\textlangle\begin{alignhere}#1{\Map{\Compose\tmannot\trim}{\Listize[#2]}}\textrangle\end{alignhere}}%
+}
+\newcommand\tupla\tupla@
+
+%\newcommand{\tuplax}[2][\CommaSep]{%
+%	\normalfont\tipo{tupla}\textlangle\begin{alignhere}#1{\Map{\Compose\tipo\trim}{\Listize[#2]}}\textrangle\end{alignhere}%
+%}
+
+\newcommand{\tuplax}[1]{\tupla@[\CommaSep]{#1}\null}
+
+\newcommand{\fannot}[4]{$\fun{#1}\ \colon#2 \longrightarrow #3$\hfill\ifnempty{#4}{\{#4\}}\break}
+
+\newcommand{\rep}[2]{%
+	\fannot{Rep}{\widehat{\tipo{#1}}}{\mathit{boolean}\vspace{\parskip}}{}
+	(\paratodo{$\widehat{\tipo{#1}}$}{#2})\\%
+	$\fun{Rep}(#2) \equiv$\xspace%
+}
+
+\newcommand{\abs}[4]{%
+	\fannot{Abs}{\widehat{\tipo{#1}}\ #3}{\widehat{\tipo{#2}}\vspace{\parskip}}{$\fun{Rep}(#3)$}%
+	(\paratodo{$\widehat{\tipo{#1}}$}{#3})\\%
+	$\fun{Abs}(#3) \equiv #4 : \widehat{\tipo{#2}} \mid$\xspace%
+}
+
+\newcommand{\quadx}{\hspace*{1em}}
+
+\endinput

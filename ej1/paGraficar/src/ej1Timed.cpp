@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <sys/time.h>
 using namespace std;
                                       //PARA CORRERLO : "./exj1 ej1/Tp1Ej1.in ej1/Tp1Ej1.out"
 
@@ -32,13 +33,14 @@ void print(vector<int> ramales, int D[],int j,int i){
 
 void crearDists(int km, vector<int> ramales, int D[], int n){
   int r;
+  int aux1,aux2;
   vector<int>::iterator it = ramales.begin();
   D[0] = *it;
   int j=0;
   while (j<n-1){
-    int aux1 = *it;
+    aux1 = *it;
     it++;
-    int aux2 = *it;
+    aux2 = *it;
     D[j] = aux1 - aux2;
     j++;
   } //Aca estoy pegando el 0, de la ultima ciudad
@@ -86,15 +88,32 @@ int mayorCant(ramal acum1, ramal acum2){
   } 
   return acum2.ciudades;
 }
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int ejUno(int km, vector<int> ramales) {
+	timeval startt,endd;
+void init_time()
+{
+    gettimeofday(&startt,NULL);
+}
+
+double get_time()
+{
+    gettimeofday(&endd,NULL);
+    return (1000000*(endd.tv_sec-startt.tv_sec)+(endd.tv_usec-startt.tv_usec))/1000000.0;
+}
+int ejUno(int km, vector<int> ramales, string fileOutput) {
+  ofstream fOutput(fileOutput.c_str());
+	init_time();
+
   ramal acum1;
   ramal acum2;
   ramal *acumActual = &acum1;
   int n = ramales.size();
   int D[n];
   bool meAlcanza;
+
+
 
   crearDists(km, ramales, D, n);    //creo arreglo con las distancias, si la ciudades son [a,b,c,d,e,f] 
                                     //entonces D = [d(a,b), d(b,c), d(c,d), d(d,e), d(e,f)]
@@ -104,7 +123,6 @@ int ejUno(int km, vector<int> ramales) {
   int i=n-1;
   int j=n-2;
   while(j>=0){
-//print(ramales,D,j,i);
     meAlcanza = meAlcanzaCable(D,km,j,acumActual);  //Devuelve un int que me indica si ALCANZA, ALCANZA_SI_DESCARTO o NO_ALCANZA
     if(meAlcanza){
       if(esTuplaNueva(i,j)) {
@@ -125,16 +143,18 @@ int ejUno(int km, vector<int> ramales) {
     }
   }
   int res = mayorCant(acum1,acum2);
+
+  double tiempo = get_time();
+  fOutput << fixed << tiempo << endl;
   return res;
 }
 
-int evaluarTests(string fileTestData, string fileTestResult) {
+int evaluarTests(string fileTestData, string fileOutput) {
   vector<int> ramales;
   int i = 1;
   int km;
   string line;
   ifstream fileData (fileTestData.c_str());
-  ifstream fileResult (fileTestResult.c_str());
   // Abri los archivos de datos y resultados
   // e instancie las variables necesarias para el problema
   // el kilometraje y el vector de ramales
@@ -156,23 +176,13 @@ int evaluarTests(string fileTestData, string fileTestResult) {
     // de manera tal que si el vector es [6, 8, 12, 15]
     // ramales = [15, 12, 8, 6]
 
-    int res = ejUno(km, ramales);
+    int res = ejUno(km, ramales, fileOutput);
     // Almaceno el resultado del test i
-    
-    getline (fileResult, line);
 
     // Lei una linea del archivo de resultados
     // y pregunto si ya termine de evaluar todos los tests
 
-    int resTest = atoi(line.c_str());
     // convierto a int
-
-    if (res == resTest) {
-      cout << "Paso el test " << i << ". Felicitaciones!" << endl;
-    } else {
-      cout << "Fallo el test " << i << ". :(" << endl;
-      cout << "Obtuve " << res << " deberia tener " << resTest << endl;
-    }
 
     i++;
     ramales.resize(0);
@@ -181,7 +191,7 @@ int evaluarTests(string fileTestData, string fileTestResult) {
 
 int main(int argc, char **argv) {
   string fileTestData(argv[1]);
-  string fileTestResult(argv[2]);
-  evaluarTests(fileTestData, fileTestResult);
+  string fileOutput(argv[2]);
+  evaluarTests(fileTestData,fileOutput);
   return 0;
 }

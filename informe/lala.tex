@@ -1,0 +1,93 @@
+
+medias=[0.0000124,0.0000368, 0.000016,0.0000878, 0.000019, 0.000236]
+std=[0,0,0,0,0,0]
+
+ax.set_xticklabels(('3', '3','5','5','8', '8')) 
+
+\begin{figure}
+  \centering
+$T(e) =$ \left\{
+\begin{matrix} 
+  
+\end{matrix}
+\right
+\end{figure}
+
+
+
+\noindent\makebox[\linewidth]{\rule{17cm}{0.4pt}}
+.\\
+\algoritmo{swap}{in exploradoras : Ronda,in pos1 : int,in pos2 : int}{res : int}{
+\Var{temp : char}
+\complejidad{O(1)}
+\State $temp \larr exploradoras[pos1]$
+\complejidad{O(1)}
+\State $exploradoras[pos1] \larr exploradoras[pos2]$
+\complejidad{O($e$)}
+\State $exploradoras[pos2] \larr temp$ 
+\complejidad{O(1)}
+} {O(1)}
+
+\vspace{3mm}
+\begin{center}
+\textbf{Explicación y justificación de complejidad} \\ 
+\end{center} 
+
+La idea del algoritmo es alternar la ubicación de las dos exploradoras. Como son todas operaciones elementales 
+el algoritmo tiene orden de complejidad O(1).
+
+
+
+
+Por lo cual, demostramos que la complejidad del algoritmo es O($e!*e*a$) $\in$ O($e^e*a^2$).
+No podemos despreciar $a$ de la complejidad total, ya que es una variable no del todo dependiente de la 
+cantidad de exploradoras, y por ende no podemos agruparla en el mismo conjunto de familia de funciones que $e$.
+Lo que sí sabemos es que en el peor caso el cardinal del conjunto de amigas pertenece a O($e^{2}$) ya que
+se podría pensar al peor caso de las amistades como un grafo completo, donde todos los vertices (exploradoras) estan
+relacionados con todos los otros. Como sabemos que la cantidad total de aristas de un grafo G(V,X) es:
+
+\vspace{5mm}
+
+\begin{center}
+$\sum\nolimits_{i \in V}d(i) = 2m$ 
+\end{center}
+
+\vspace{5mm}
+
+Donde $V$ es la cantidad de vertices, $d(i)$ es el grado del vertice $i$, donde el grado de un vertice es la 
+cantidad de aristas incidentes a ese vertice, y $m$ la cantidad de aristas total del grafo. Entonces, como
+m sería la cantidad total de amistades tenemos que:
+
+\vspace{5mm}
+
+\begin{center}
+$m = \frac{\sum\limits_{i=1}^e (i-1)}{2} = \frac{e*(e-1)}{2} \in O(e^2)$
+\end{center}
+
+\vspace{5mm}
+
+
+Como $e.a \in $ O($e.a$) $\wedge$ $e! \in$ O($e!$) $\implies$ $(e.a + e!) \in$  O(max($e!,e.a$)) 
+$\in$ O($e!$) $\in$ O($e^{e}a^{2}$) por lo cual nuestro algoritmo
+resuelve el problema para la complejidad pedida. Como la complejidad de las funciones \textbf{permutaciones} 
+y \textbf{maxDistAmistades} las justificaremos con su debido código, en esta parte explicaremos el resto del 
+algoritmo. 
+
+Utilizamos las operaciones \textbf{append} y \textbf{push\_back} que cumplen la misma función en cuanto a que
+concatenan al final del string el string o caracter pasado por parámetro, pero por problema de tipos, 
+utilizamos las dos en los distintos casos. Ambas operaciones son lineales en la cantidad de elementos del nuevo string concatenado.
+Las primeras dos concatenaciones mediante la función \textbf{append} al resultado cuestan O(1) ya que, al 
+tener solo dos elementos, esas operaciones son de costo constante.
+
+Luego, el ciclo \textbf{for} que itera sobre el conjunto de exploradoras resultante cicla $e$ veces. En cada
+iteración se llama a la función \textbf{push\_back} que le concatena al string el nuevo caracer pasado por parámetro.
+En total el ciclo cuesta:
+
+\begin{center}
+  $\sum\limits_{i=2}^e i = \frac{e*(e-1)}{2} - 1 \in O(e^2)$
+\end{center}
+
+Por último, la complejidad de \textbf{exploradoraEnPos} y \textbf{cantidad} son constantes ya que estan
+directamente implementadas con el operator $[]$ y la función $size()$ de la clase Vector de c++.
+
+Ahora pasaremos a demostrar las complejidades de los algoritmos auxiliares.
