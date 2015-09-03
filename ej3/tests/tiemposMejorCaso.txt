@@ -1,53 +1,36 @@
-Test Mejor Caso 1:
- Tiempo de ejecución: 1.2e-05
- Tiempo de ejecución: 1e-05
- Tiempo de ejecución: 1.3e-05
- Tiempo de ejecución: 1.1e-05
- Tiempo de ejecución: 1.6e-05
-
- Prom = 1.24*10^-5.
-
-Test Mejor Caso 2:
- Tiempo de ejecución: 1.5e-05
- Tiempo de ejecución: 1.8e-05
- Tiempo de ejecución: 1.5e-05
- Tiempo de ejecución: 1.8e-05
- Tiempo de ejecución: 1.4e-05
-
- Prm = 1.6*10^-5
-
-Test Mejor Caso 3:
- Tiempo de ejecución: 2.4e-05
- Tiempo de ejecución: 2e-05
- Tiempo de ejecución: 1.5e-05
- Tiempo de ejecución: 2e-05
- Tiempo de ejecución: 1.6e-05
-
- Prom = 1.9*10^-5
-
-Test Mejor Caso 4:
- Tiempo de ejecución: 3.6e-05
- Tiempo de ejecución: 3.3e-05
- Tiempo de ejecución: 4e-05
- Tiempo de ejecución: 3.5e-05
- Tiempo de ejecución: 4e-05
-
- Prom = 3.68*10^-5
-
-Test Mejor Caso 5:
- Tiempo de ejecución: 9.1e-05
- Tiempo de ejecución: 8.6e-05
- Tiempo de ejecución: 8.8e-05
- Tiempo de ejecución: 8.3e-05
- Tiempo de ejecución: 9.1e-05
-
- Prom = 8.78*10^-5
-
-Test Mejor Caso 6:
- Tiempo de ejecución: 0.000212
- Tiempo de ejecución: 0.000294
- Tiempo de ejecución: 0.000225
- Tiempo de ejecución: 0.000224
- Tiempo de ejecución: 0.000224
-
- Prom = 0.000236
+Test numero: 1
+0.000152
+0.000002
+Test numero: 2
+0.000138
+0.000003
+Test numero: 3
+0.000148
+0.000002
+Test numero: 4
+0.000152
+0.000002
+Test numero: 5
+0.000197
+0.000002
+Test numero: 6
+0.000182
+0.000003
+Test numero: 7
+0.000665
+0.000007
+Test numero: 8
+0.001317
+0.000013
+Test numero: 9
+0.002264
+0.000023
+Test numero: 10
+0.002529
+0.000025
+Test numero: 11
+0.003307
+0.000033
+Test numero: 12
+0.004495
+0.000045

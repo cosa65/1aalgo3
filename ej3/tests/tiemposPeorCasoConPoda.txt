@@ -1,0 +1,21 @@
+Test numero: 1
+0.002455
+0.000025
+Test numero: 2
+0.010446
+0.000104
+Test numero: 3
+0.035451
+0.000355
+Test numero: 4
+0.273694
+0.002737
+Test numero: 5
+2.400822
+0.024008
+Test numero: 6
+23.649567
+0.236496
+Test numero: 7
+0.000040
+0.000000
