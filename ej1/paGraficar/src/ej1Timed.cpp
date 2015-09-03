@@ -103,49 +103,56 @@ double get_time()
     return (1000000*(endd.tv_sec-startt.tv_sec)+(endd.tv_usec-startt.tv_usec))/1000000.0;
 }
 int ejUno(int km, vector<int> ramales, string fileOutput) {
-  ofstream fOutput(fileOutput.c_str());
-	init_time();
+  ofstream fOutput;
+	fOutput.open(fileOutput.c_str(), fstream::app);
+	double prom=0;
+	int res;
+	for(int r=0;r<10000;r++){
+		init_time();
 
-  ramal acum1;
-  ramal acum2;
-  ramal *acumActual = &acum1;
-  int n = ramales.size();
-  int D[n];
-  bool meAlcanza;
+		ramal acum1;
+		ramal acum2;
+		ramal *acumActual = &acum1;
+		int n = ramales.size();
+		int D[n];
+		bool meAlcanza;
 
 
+		crearDists(km, ramales, D, n);    //creo arreglo con las distancias, si la ciudades son [a,b,c,d,e,f] 
+		                                  //entonces D = [d(a,b), d(b,c), d(c,d), d(d,e), d(e,f)]
+		acum1.cable=0; acum1.ciudades=0;
+		acum2.cable=0; acum2.ciudades=0;          //tup[0]=cant de cable usado, tup[1]=cant de ciudades conectadas
 
-  crearDists(km, ramales, D, n);    //creo arreglo con las distancias, si la ciudades son [a,b,c,d,e,f] 
-                                    //entonces D = [d(a,b), d(b,c), d(c,d), d(d,e), d(e,f)]
-  acum1.cable=0; acum1.ciudades=0;
-  acum2.cable=0; acum2.ciudades=0;          //tup[0]=cant de cable usado, tup[1]=cant de ciudades conectadas
+		int i=n-1;
+		int j=n-2;
+		while(j>=0){
+		  meAlcanza = meAlcanzaCable(D,km,j,acumActual);  //Devuelve un int que me indica si ALCANZA, ALCANZA_SI_DESCARTO o NO_ALCANZA
+		  if(meAlcanza){
+		    if(esTuplaNueva(i,j)) {
+		      acumActual->ciudades++;
+		    }
+		    soloAgregarCiudad(D,j,acumActual);
+		    j--;
+		  } else {
+		    if(esTuplaNueva(i,j)) {
+		      j--;
+		      i--;
+		      D[i]=0;
+		    } else {
+		      elegirAcumNuevo(&acum1,&acum2,&acumActual);
+		      i--;
+		      quitarCiudad(D,i,acumActual);
+		    }
+		  }
+		}
+		res = mayorCant(acum1,acum2);
 
-  int i=n-1;
-  int j=n-2;
-  while(j>=0){
-    meAlcanza = meAlcanzaCable(D,km,j,acumActual);  //Devuelve un int que me indica si ALCANZA, ALCANZA_SI_DESCARTO o NO_ALCANZA
-    if(meAlcanza){
-      if(esTuplaNueva(i,j)) {
-        acumActual->ciudades++;
-      }
-      soloAgregarCiudad(D,j,acumActual);
-      j--;
-    } else {
-      if(esTuplaNueva(i,j)) {
-        j--;
-        i--;
-        D[i]=0;
-      } else {
-        elegirAcumNuevo(&acum1,&acum2,&acumActual);
-        i--;
-        quitarCiudad(D,i,acumActual);
-      }
-    }
-  }
-  int res = mayorCant(acum1,acum2);
-
-  double tiempo = get_time();
-  fOutput << fixed << tiempo << endl;
+		double tiempo = get_time();
+		prom+=tiempo;
+	}
+	prom = prom/10000;
+	fOutput << "Cantidad de Ciudades: " << ramales.size() << " tiempo: ";
+  fOutput << fixed << prom << endl;
   return res;
 }
 
