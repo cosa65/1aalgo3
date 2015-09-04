@@ -841,63 +841,52 @@ lo cual representa el caso en el que todas son amigas entre sí, excepto por un 
 
 Para mostrar de manera más clara las diferencias de rendimiento entre los distintos casos, corrimos varias veces 
 el algoritmo calculando el tiempo que tardaba en ejecutarse. Luego tomamos el promedio y lo graficamos, de acuerdo a distintos tamaños de inputs.
-Para todos los casos, utilizamos grupos de exploradoras de tamaño 3, 5, y 8: \\
+En todos los gráficos fijamos el cardinal del grupo de exploradoras en 3, 5, 7 y 8. La medida de tiempo de todos los gráficos esta hecha 
+en segundos: 
 
-\textbf{Caso mejor}:
+      \begin{figure}[H]
+        \includegraphics[scale=0.4]{tiemposE3}
+        \includegraphics[scale=0.4]{tiemposE5}
+      \end{figure}
+      \begin{figure}[H]
+        \includegraphics[scale=0.4]{tiemposE7}
+        \includegraphics[scale=0.4]{tiemposE8}
+      \end{figure}
 
-      \begin{figure}[h]
-        \begin{center}
-      %  \advance\leftskip-3cm
-      %  \advance\rightskip-3cm
-        \includegraphics[width=100mm,scale=0.5]{mejorCaso}
-        \end{center}
-        \end{figure}
+Por cada tamaño calculamos el tiempo para los dos mejores casos, el de más a la izquierda cuando el conjunto de amistades es 
+nulo, y a su derecha cuando el conjunto de amistades es el más grande posible. A mayor tamaño del grupo de exploradoras los mejores casos 
+se mantienen casi iguales, mientras que los otros casos crecen de manera abrupta. Esto sucede ya que la complejidad de los mejores casos es 
+cuadratica en $e$, mientras que los otros son factoriales. Podemos notar como en los casos $e$ = 3 y $e$ = 5 hay una diferencia de rendimiento entre los 
+mejores casos. Esto se da porque el segundo tiene que almacenar todo el conjunto de amistades en memoria, lo cual hace que tenga un heap mayor 
+que el primero. Por ende, esa pequeña diferencia de rendimiento.
 
-Por cada tamaño calculamos el tiempo para los dos mejores casos, a la izquierda cuando el conjunto de amistades es 
-nulo, y a la derecha cuando el conjunto de amistades es el más grande posible.
-Podemos notar como los casos donde el conjunto de amistades es el máximo el algoritmo tarda más. Esto se debe a que 
-al almacenar en memoria más estructuras, la ejecución del algoritmo ralentiza.
-
-\\
-
-\textbf{Caso peor y promedio} \\
-
-Para evaluar el peor caso hicimos ejemplos donde todas las exploradoras eran amigas entre sí, excepto por un par. 
-Para el resto de las muestras, realizamos tests sin ninguna intencionalidad. Para generarlos establecimos un conjunto de 
-exploradoras y luego generamos de manera pseudoaleatoria el conjunto de amistades. Tomamos un numero random 
-usando la función \textbf{rand\_r} y luego le aplicamos módulo tamaño de la ronda para elegir una exploradora al azar. 
-Repetimos el procedimiento con la segunda elección hasta que sea distinta de la primera. Iteramos $\frac{e*(e-1)}{2}$
+Para las muestras indicadas como random realizamos tests sin ninguna intencionalidad. Para generarlos establecimos un conjunto de 
+exploradoras fijo y luego generamos de manera pseudoaleatoria el conjunto de amistades. Generamos un número random 
+utilizando la función \textbf{rand\_r} y luego le aplicamos al resultado módulo tamaño de la ronda. Así obtuvimos una exploradora al azar. 
+Repetimos el procedimiento con la segunda elección hasta que sea distinta de la primera. Iteramos este procedimiento $\frac{e*(e-1)}{2}$
 ya que es el la cantidad máxima de posibles amistades.
 
-
-      \begin{figure}[h]
-        \includegraphics[scale=0.40]{peorCaso3}
-        \includegraphics[scale=0.40]{peorCaso5}
-        \begin{center}
-      %  \advance\leftskip-3cm
-      %  \advance\rightskip-3cm
-        \includegraphics[scale=0.4]{peorCaso8}
-        \end{center}
-        \end{figure}
-
-Podemos observar cómo el algoritmo difiere temporalmente de manera abrupta al elegir un conjunto de 8 exploradoras
-. Esto sucede por la complejidad propia del problema, la cual es factorial en la cantidad de exploradoras.
-Por ende, al aumentar levemente la cantidad de exploradoras, el tiempo requerido para finalizar es ampliamente mayor.
+Para evaluar el peor caso hicimos tests donde todas las exploradoras eran amigas entre sí, excepto por un par. 
 
 Como aclaramos previamente que una vez fijada la cantidad de exploradoras la complejidad temporal del algoritmo 
 depende exclusivamente del cardinal del conjunto de amistades, mostramos los siguientes datos:
 \begin{itemize}
-  \item Para el test con 3 exploradoras el cardinal de amistades es en todos los casos de 1, excepto 
-    en el peor caso que es 2.
+  \item Para todos los gráficos el cardinal del conjunto de amistades en los mejores casos son 0 y $\frac{e*(e-1)}{2}$
+  \item Para el test con 3 exploradoras el cardinal de amistades es:
+    \begin{itemize}
+      \item Rojo: 1  \ \ \ \ \ \ \inlineitem Rosa : 1 \ \ \ \ \ \  \inlineitem Marrón : 1  \ \ \ \ \ \ \inlineitem Gris  : 2
+    \end{itemize}
   \item Para el test con 5 exploradoras el cardinal de amistades es:
     \begin{itemize}
-      \item Azul : 5  \ \ \ \ \ \ \inlineitem Verde :  4
-      \item Rojo : 8  \ \ \ \ \ \ \inlineitem Rosa  :  9
+      \item Rojo: 5  \ \ \ \ \ \ \inlineitem Rosa : 7 \ \ \ \ \ \  \inlineitem Marrón : 8  \ \ \ \ \ \ \inlineitem Gris  : 10
+    \end{itemize}
+  \item Para el test con 7 exploradoras el cardinal de amistades es:
+    \begin{itemize}
+      \item Rojo: 14  \ \ \ \ \ \inlineitem Rosa : 14  \ \ \ \ \  \inlineitem Marrón : 16  \ \ \ \ \ \ \inlineitem Gris  : 21
     \end{itemize}
   \item Para el test con 8 exploradoras el cardinal de amistades es:
     \begin{itemize}
-      \item Azul : 13  \ \ \ \ \ \ \inlineitem Verde :  14
-      \item Rojo : 15  \ \ \ \ \ \ \inlineitem Rosa  :  28
+      \item Rojo : 13 \ \ \ \ \ \inlineitem Rosa : 14  \ \ \ \ \  \inlineitem Marrón : 15  \ \ \ \ \ \ \inlineitem Gris  : 28
     \end{itemize}
 \end{itemize}
 
@@ -905,7 +894,7 @@ Por ende, una vez fijada la cantidad de exploradoras, podemos observar cómo el 
 difiere en base a la cantidad de amistades. 
 
 Como nuestro algoritmo utiliza la técnica de backtracking, la cual consiste en explorar todas las posibles 
-soluciones, consideramos utilizar una poda para mejorar el rendimiento del algoritmo. Como el algoritmo pide 
+soluciones, consideramos utilizar una poda para mejorar el rendimiento. Como el algoritmo pide 
 encontrar la ronda que, además de que cumpla la condición de las distancias, también sea la menor lexicográficamente 
 se puede utilizar esta información para acotar el espacio de posibles soluciones. En el ejercicio modelamos 
 una ronda y lo que nos interesa como resultado es la distancia relativa entre cada amiga, no su posición en la ronda. 
@@ -914,16 +903,17 @@ de todo el conjunto es suficiente. Esto sucede porque dada cualquier ronda que n
 se la puede reacomodar a través de rotaciones simples entre las exploradoras contiguas, hasta llegar a una ronda 
 cuya distancia entre todas es la misma (ya que no modificamos sus distancias relativas) y es menor lexicográficamente.
 
-Al utilizar esta poda podemos observar como el algoritmo mejora su eficiencia en aproximadamente un 85 porciento: 
+A continuación mostramos de manera gráfica la comparacion entre los peores tiempos del algoritmo con distintos tamaños de exploradoras.
+A la izquierda se encuentra el tiempo estimado del peor caso común, y a la derecha el peor caso utilizando la poda:
 
       \begin{figure}[h]
-        \begin{center}
-        \includegraphics[scale=0.4]{peorCaso8Conpoda}
-        \end{center}
-        \end{figure}
+        \includegraphics[scale=0.4]{tiempoE3P}
+        \includegraphics[scale=0.4]{tiempoE7P}
+      \end{figure}
 
+Podemos notar como a medida que crece el tamaño del conjunto de exploradoras, la diferencia de rendimiento entre utilizar o no la poda 
+es cada vez mayor.
 
-Falta un poco de explicación aca, o conclusiones y ponerme unidad de medicion de tiempoouu
 
 \end{document}
 

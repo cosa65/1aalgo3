@@ -2,6 +2,7 @@
 
 Ronda::Ronda(set<char> conjExp){
   this->exploradoras.assign(conjExp.begin(), conjExp.end()); 
+  // Inicializa una ronda a partir de un conjunto de exploradoras
 }
 
 int Ronda::cantidad(){
@@ -41,15 +42,6 @@ bool Ronda::estaEnRonda(char exp){
   return res;
 }
 
-bool Ronda::esMayorQue(Ronda r) {
-  bool res = false;
-  for (int i = 0 ; i < r.cantidad() ; i++) {
-    if (r.exploradoraEnPos(i) > this->exploradoras[i])
-      res = true;
-  }
-  return res;
-}
-
 char Ronda::exploradoraEnPos(int i) {
   return this->exploradoras[i];
 }
@@ -81,6 +73,17 @@ int Ronda::maxDistAmistades(bigSet amistades) {
     res = max(res, this->distancia(exp1, exp2));
   }
 
+  return res;
+}
+
+char Ronda::menorExploradora() {
+  char res = exploradoras[0];
+  int i = 1;
+  while (i < exploradoras.size()) {
+    if (exploradoras[i] < res) 
+      res = exploradoras[i];
+    i++;
+  }
   return res;
 }
 
@@ -133,24 +136,43 @@ int generate(unsigned int *seed, int tam){
 }
 
 void Ronda::swap(int i, int j) {
-  // Assert que las posiciones sean validas
+  assert((i > 0) && (i < exploradoras.size()));
+  assert((j > 0) && (j < exploradoras.size()));
   char temp = exploradoras[i];
   exploradoras[i] = exploradoras[j];
   exploradoras[j] = temp;
 }
 
+
+// Tests realizados para evaluar la clase ronda
 //int main(){
 //  set<char> C;
+//  set<char> D;
+//  set<char> E;
 //  set<set<char>> amistades;
 //  C.insert('a');
-//  C.insert('b');
-//  C.insert('c');
-//  C.insert('d');
-//  C.insert('e');
-//  C.insert('f');
-//  C.insert('g');
-////  C.insert('h');
 //  Ronda r = Ronda(C);
+//  cout << "El menor es: " << r.menorExploradora() << endl;
+//
+//  C.insert('b');
+//  Ronda x = Ronda(C);
+//  cout << "El menor es: " << x.menorExploradora() << endl;
+//
+//  D.insert('q');
+//
+//  D.insert('f');
+//
+//  D.insert('v');
+//  Ronda y = Ronda(D);
+//  cout << "El menor es: " << y.menorExploradora() << endl;
+//
+//  E.insert('z');
+//
+//  E.insert('g');
+//  Ronda z = Ronda(E);
+//  cout << "El menor es: " << z.menorExploradora() << endl;
+//
+////  C.insert('h');
 //  unsigned int seed = time(NULL);
 //  unsigned int tam = r.cantidad();
 //  int pos1;
