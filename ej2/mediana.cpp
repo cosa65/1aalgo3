@@ -4,59 +4,51 @@
 #include <queue> //priority_queue
 #include <sstream> //istringstream
 #include <algorithm> //lower_bound
-#include<sys/time.h>
-// #include "string.h"
+#include <sys/time.h>
 using namespace std;
-
-timeval inicio, fin;
-
-void init_time()
-{
-  gettimeofday(&inicio, NULL);
-}
-
-double get_time()
-{
-  gettimeofday(&fin, NULL);
-  return (1000000*(fin.tv_sec-inicio.tv_sec) + (fin.tv_usec-inicio.tv_usec))/1000000.0;   
-}
 
 
 void mediana(string, stringstream&);
 int medianaSubarreglo(int, priority_queue<int>&, priority_queue<int, vector<int>, greater<int> >&);
+void init_time();
+double get_time();
 
 int main () {
-	string iline; 
+
+	string iline;
 	stringstream oss;
-	ifstream ifile ("testRandom/test10000.in"); //para generar secuencias random --->  ./rand filename longitudLista maximoValor
-	ofstream ofile ("testx.out");
-  ofstream tfile ("t10000.txt");
-  float suma = 0;
-  unsigned int i;
+	double tiempo;
+	double suma = 0;
+	int cantMediciones = 100000;
+			 ifstream ifile ("Tests/mejorCaso/in/test1000");
+		   ofstream ofile ("Tests/mejorCaso/out/mejor1000");
+	ofstream timeFile ("Tests/mejorCaso/tiempos/mejor1000");
 
 	while ( getline (ifile,iline) )
-  {
-    cout << "hare" << endl;
-    for ( i = 0; i < 100; i++ )
-    {
-	    mediana(iline, oss);
-      suma += get_time();
-	  }
-	  ofile << oss.rdbuf();
-	  if (ifile.eof()) break;
-	  ofile << "\n";
-  }
-  ifile.close();
-  tfile << "Promedio: " << fixed << suma/100.0 << endl;
-  tfile.close();
-  return 0;
- //   tfile << "Tiempo de ejecución: " << fixed << get_time() << endl;
- //   tfile << "\n";
+	{
+		for (int i = 0; i < cantMediciones; ++i)
+		{
+			mediana(iline, oss);
+			tiempo = get_time();
+			suma += tiempo;
+			timeFile << fixed << tiempo << endl;		
+		}
+			ofile << oss.rdbuf();
+			if (ifile.eof()) break;
+			ofile << "\n";
+	}
+
+	timeFile << "Cantidad de Mediciones: " << cantMediciones << endl;
+	timeFile << "Promedio: " << fixed << suma/cantMediciones << endl;
+	timeFile.close();
+	ifile.close();
+
+	return 0;
 }
 
 void mediana(string line, stringstream& oss)
 {
-  init_time();
+	init_time();
 	priority_queue<int> menores;
 	priority_queue<int, vector<int>, greater<int> > mayores;
 	int prox, med;
@@ -66,10 +58,11 @@ void mediana(string line, stringstream& oss)
 	{
 		med = medianaSubarreglo(prox, menores, mayores);
 		oss << med;		
-  //  oss << get_time(); 
 		if (iss.eof()) break;
 		oss << " ";
 	}
+
+	oss << endl;
 
 }
 
@@ -110,7 +103,7 @@ int medianaSubarreglo(int prox, priority_queue<int>& menores, priority_queue<int
 		}
 	}
 
-	//cout << prox << endl;
+	// cout << prox << endl;
 
 	if (menores.size() > mayores.size())
 		return menores.top();
@@ -119,5 +112,19 @@ int medianaSubarreglo(int prox, priority_queue<int>& menores, priority_queue<int
 	if (menores.size() == mayores.size())
 		return (menores.top()+mayores.top())/2;
 
+}
 
+
+
+timeval inicio, fin;
+
+void init_time()
+{
+  gettimeofday(&inicio, NULL);
+}
+
+double get_time()
+{
+  gettimeofday(&fin, NULL);
+  return (1000000*(fin.tv_sec-inicio.tv_sec) + (fin.tv_usec-inicio.tv_usec))/1000000.0;   
 }
